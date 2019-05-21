@@ -1,0 +1,14 @@
+{
+  "name": "whats-going-on",
+  "version": "0.0.1",
+  "description": "Retrieves TODO items from the “What's Going On?” mind map and syncs them to Evernote",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Patrick Hund <pahund@team.mobile.de> (https://ebaytech.berlin/)",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^39.2.0"
+  }
+}
