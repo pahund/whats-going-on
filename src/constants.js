@@ -4,5 +4,5 @@
 module.exports = {
   TOKEN_PATH: "token.json",
   // If modifying these scopes, delete token.json.
-  SCOPES: ["https://www.googleapis.com/auth/drive.metadata.readonly"]
+  SCOPES: ["https://www.googleapis.com/auth/drive.readonly"]
 };
