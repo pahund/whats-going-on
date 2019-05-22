@@ -12,6 +12,7 @@ module.exports = () =>
         return;
       }
       const zip = await JSZip.loadAsync(data);
-      console.log('[PH_LOG] zip.folder("document"):', zip.folder("document")); // PH_TODO
+      const content = await zip.file("document/mindmap.xml").async('string');
+      resolve(content);
     })
   );
