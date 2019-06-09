@@ -9,7 +9,7 @@ module.exports = oAuth2Client =>
       access_type: "offline",
       scope: SCOPES
     });
-    console.log("Authorize this app by visiting this url:", authUrl);
+    console.log("Authorize Google Drive for this app by visiting this url:", authUrl);
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout

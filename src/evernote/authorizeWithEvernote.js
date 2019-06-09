@@ -27,9 +27,7 @@ module.exports = () =>
       );
     }
     const client = new Client(credentials);
-    getAccessToken(client).then(({ oauthToken, oauthSecret }) => {
-      console.log('[PH_LOG] oauthToken:', oauthToken); // PH_TODO
-      console.log('[PH_LOG] oauthSecret:', oauthSecret); // PH_TODO
-      resolve(client);
+    getAccessToken(client).then(authorizedClient => {
+      resolve(authorizedClient);
     }).catch(err => reject(err));
   });
