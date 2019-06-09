@@ -1,5 +1,7 @@
-const authorizeWithEvernote = require('./authorizeWithEvernote');
+const authorize = require('./authorize');
+const retrieveTodos = require('./retrieveTodos');
 
 module.exports = {
-  authorizeWithEvernote
+  authorize,
+  retrieveTodos
 };

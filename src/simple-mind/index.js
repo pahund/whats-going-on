@@ -1,13 +1,13 @@
-const authorizeWithGoogleDrive = require('./authorizeWithGoogleDrive');
+const authorize = require("./authorize");
 const downloadMindMap = require("./downloadMindMap");
-const retrieveTodoItems = require("./retrieveTodoItems");
+const retrieveTodos = require("./retrieveTodos");
 const retrieveMindMapData = require("./retrieveMindMapData");
-const cleanUp = require('./cleanUp');
+const cleanUp = require("./cleanUp");
 
 module.exports = {
-  authorizeWithGoogleDrive,
+  authorize,
   downloadMindMap,
-  retrieveTodoItems,
+  retrieveTodos,
   retrieveMindMapData,
   cleanUp
 };
