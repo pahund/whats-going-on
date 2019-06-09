@@ -1,21 +1,23 @@
-const fs = require("fs");
-const authorize = require('./src/authorize');
-const downloadMindMap = require('./src/downloadMindMap');
-const retrieveMindMapData = require('./src/retrieveMindMapData');
-const retrieveTodoItems = require('./src/retrieveTodoItems');
+const {
+  authorizeWithGoogleDrive,
+  downloadMindMap,
+  retrieveTodoItems,
+  retrieveMindMapData,
+  cleanUp
+} = require("./src/simple-mind");
 
-// Load client secrets from a local file.
-fs.readFile("credentials.json", (err, content) => {
-  if (err) {
-    return console.log("Error loading client secret file:", err);
-  }
-  // Authorize a client with credentials, then call the Google Drive API.
-  authorize(JSON.parse(content), async auth => {
+(async () => {
+  let data;
+  try {
+    const auth = await authorizeWithGoogleDrive();
     await downloadMindMap(auth);
     const xml = await retrieveMindMapData();
-    const data = await retrieveTodoItems(xml);
-    console.log(`[PH_LOG] data\n${JSON.stringify(data, null, 4)}`); // PH_TODO
-  });
-});
-
-
+    data = await retrieveTodoItems(xml);
+    cleanUp();
+  } catch (err) {
+    console.error(err.message);
+    process.exit(1);
+  }
+  console.log(`Todo data from mind map:\n${JSON.stringify(data, null, 4)}`);
+  process.exit(0);
+})();
