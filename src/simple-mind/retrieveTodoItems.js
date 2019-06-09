@@ -1,5 +1,6 @@
 const xml2js = require("xml2js");
 const parser = new xml2js.Parser();
+const { rejectWithCustomMessage } = require("../utils");
 
 const getTopics = data =>
   data["simplemind-mindmaps"].mindmap[0].topics[0].topic;
@@ -30,9 +31,11 @@ module.exports = xml =>
   new Promise((resolve, reject) =>
     parser.parseString(xml, (err, data) => {
       if (err) {
-        err.message = `Error parsing mind map XML data – ${err}`;
-        reject(err);
-        return;
+        return rejectWithCustomMessage(
+          "Error parsing mind map XML data",
+          reject,
+          err
+        );
       }
       resolve(
         getTopics(data)

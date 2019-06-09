@@ -2,6 +2,7 @@ const { readFileSync } = require("fs");
 const { google } = require("googleapis");
 const { TOKEN_PATH, CREDENTIALS_PATH } = require("./constants");
 const getAccessToken = require("./getAccessToken");
+const { rejectWithCustomMessage } = require("../utils");
 
 module.exports = () =>
   new Promise((resolve, reject) => {
@@ -9,19 +10,21 @@ module.exports = () =>
     try {
       rawCredentials = readFileSync(CREDENTIALS_PATH);
     } catch (err) {
-      err.message = `Error loading client secret file ${CREDENTIALS_PATH} – ${err.message}`;
-      reject(err);
-      return;
+      return rejectWithCustomMessage(
+        `Error loading client secret file ${CREDENTIALS_PATH}`,
+        reject,
+        err
+      );
     }
     let credentials;
     try {
       credentials = JSON.parse(rawCredentials);
     } catch (err) {
-      err.message = `Error parsing credentials from client secret file ${CREDENTIALS_PATH} – ${
-        err.message
-      }`;
-      reject(err);
-      return;
+      return rejectWithCustomMessage(
+        `Error parsing credentials from client secret file ${CREDENTIALS_PATH}`,
+        reject,
+        err
+      );
     }
     const { client_secret, client_id, redirect_uris } = credentials.installed;
     const oAuth2Client = new google.auth.OAuth2(
@@ -44,11 +47,11 @@ module.exports = () =>
     try {
       token = JSON.parse(rawToken);
     } catch (err) {
-      err.message = `Error parsing token from token file ${TOKEN_PATH} – ${
-        err.message
-      }`;
-      reject(err);
-      return;
+      return rejectWithCustomMessage(
+        `Error parsing token from token file ${TOKEN_PATH}`,
+        reject,
+        err
+      );
     }
     oAuth2Client.setCredentials(token);
     resolve(oAuth2Client);

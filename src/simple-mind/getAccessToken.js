@@ -1,6 +1,7 @@
 const readline = require("readline");
 const fs = require("fs");
 const { TOKEN_PATH, SCOPES } = require("./constants");
+const { rejectWithCustomMessage } = require("../utils");
 
 module.exports = oAuth2Client =>
   new Promise((resolve, reject) => {
@@ -17,19 +18,21 @@ module.exports = oAuth2Client =>
       rl.close();
       oAuth2Client.getToken(code, (err, token) => {
         if (err) {
-          err.message = `Error verifying access token – ${err.message}`;
-          reject(err);
-          return;
+          return rejectWithCustomMessage(
+            "Error verifying access token",
+            reject,
+            err
+          );
         }
         oAuth2Client.setCredentials(token);
         // Store the token to disk for later program executions
         fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
           if (err) {
-            err.message = `Failed to store token on local file system – ${
-              err.message
-            }`;
-            reject(err);
-            return;
+            return rejectWithCustomMessage(
+              `Failed to store token on local file system at ${TOKEN_PATH}`,
+              reject,
+              err
+            );
           }
           console.log("Token stored to", TOKEN_PATH);
           resolve();

@@ -1,6 +1,7 @@
 const { SMMX_PATH, FILE_ID } = require("./constants");
 const withDrive = require("./withDrive");
 const fs = require("fs");
+const { rejectWithCustomMessage } = require("../utils");
 
 module.exports = auth =>
   withDrive(auth)(
@@ -16,9 +17,11 @@ module.exports = auth =>
             { responseType: "stream" }
           );
         } catch (err) {
-          err.message = `Error downloading file with ID ${FILE_ID} from Google Drive`;
-          reject(err);
-          return;
+          return rejectWithCustomMessage(
+            `Error downloading file with ID ${FILE_ID} from Google Drive`,
+            reject,
+            err
+          );
         }
         res.data
           .on("end", () => {
@@ -27,8 +30,11 @@ module.exports = auth =>
           })
           .on("error", err => {
             console.log("\n");
-            err.message = `Error downloading file – ${err.message}`;
-            reject(err);
+            return rejectWithCustomMessage(
+              `Error downloading file with ID ${FILE_ID} from Google Drive`,
+              reject,
+              err
+            );
           })
           .on("data", d => {
             progress += d.length;

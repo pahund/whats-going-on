@@ -5,6 +5,7 @@ const {
   retrieveMindMapData,
   cleanUp
 } = require("./src/simple-mind");
+const { isDevMode } = require("./src/utils");
 
 (async () => {
   let data;
@@ -15,7 +16,7 @@ const {
     data = await retrieveTodoItems(xml);
     await cleanUp();
   } catch (err) {
-    console.error(err.message);
+    console.error(isDevMode() ? err.stack : err.message);
     process.exit(1);
   }
   console.log(`Todo data from mind map:\n${JSON.stringify(data, null, 4)}`);
