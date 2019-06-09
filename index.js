@@ -13,7 +13,7 @@ const {
     await downloadMindMap(auth);
     const xml = await retrieveMindMapData();
     data = await retrieveTodoItems(xml);
-    cleanUp();
+    await cleanUp();
   } catch (err) {
     console.error(err.message);
     process.exit(1);

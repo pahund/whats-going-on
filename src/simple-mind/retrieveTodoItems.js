@@ -30,7 +30,7 @@ module.exports = xml =>
   new Promise((resolve, reject) =>
     parser.parseString(xml, (err, data) => {
       if (err) {
-        console.error("Error parsing mind map XML data", err);
+        err.message = `Error parsing mind map XML data – ${err}`;
         reject(err);
         return;
       }

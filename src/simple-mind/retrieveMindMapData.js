@@ -6,12 +6,17 @@ module.exports = () =>
   new Promise((resolve, reject) =>
     fs.readFile(SMMX_PATH, async (err, data) => {
       if (err) {
-        console.error("Error reading zip file", err);
+        err.message = `Error reading zip file ${SMMX_PATH} – ${err.message}`;
         reject(err);
         return;
       }
-      const zip = await JSZip.loadAsync(data);
-      const content = await zip.file("document/mindmap.xml").async("string");
-      resolve(content);
+      try {
+        const zip = await JSZip.loadAsync(data);
+        const content = await zip.file("document/mindmap.xml").async("string");
+        resolve(content);
+      } catch (err) {
+        err.message = `Error retrieving mind map data from ${SMMX_PATH} – ${err.message}`;
+        reject(err);
+      }
     })
   );

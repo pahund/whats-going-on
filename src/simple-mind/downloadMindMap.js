@@ -9,17 +9,25 @@ module.exports = auth =>
         console.log(`Writing to ${SMMX_PATH}`);
         const dest = fs.createWriteStream(SMMX_PATH);
         let progress = 0;
-        const res = await drive.files.get(
-          { fileId: FILE_ID, alt: "media" },
-          { responseType: "stream" }
-        );
+        let res;
+        try {
+          res = await drive.files.get(
+            { fileId: FILE_ID, alt: "media" },
+            { responseType: "stream" }
+          );
+        } catch (err) {
+          err.message = `Error downloading file with ID ${FILE_ID} from Google Drive`;
+          reject(err);
+          return;
+        }
         res.data
           .on("end", () => {
             console.log("\nDone downloading file.");
             resolve();
           })
           .on("error", err => {
-            console.error("\nError downloading file.");
+            console.log("\n");
+            err.message = `Error downloading file – ${err.message}`;
             reject(err);
           })
           .on("data", d => {
