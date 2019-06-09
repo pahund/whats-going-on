@@ -29,12 +29,12 @@ module.exports = oAuth2Client =>
         fs.writeFile(TOKEN_PATH, JSON.stringify(token), err => {
           if (err) {
             return rejectWithCustomMessage(
-              `Failed to store token on local file system at ${TOKEN_PATH}`,
+              `Failed to store Google Drive token on local file system at ${TOKEN_PATH}`,
               reject,
               err
             );
           }
-          console.log("Token stored to", TOKEN_PATH);
+          console.log("Google Drive token stored to", TOKEN_PATH);
           resolve();
         });
       });

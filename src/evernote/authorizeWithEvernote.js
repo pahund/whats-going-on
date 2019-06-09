@@ -1,8 +1,8 @@
 const { readFileSync } = require("fs");
-const { CREDENTIALS_PATH } = require("./constants");
+const { CREDENTIALS_PATH, TOKEN_PATH } = require("./constants");
 const { rejectWithCustomMessage } = require("../utils");
 const { Client } = require("evernote");
-const getAccessToken = require('./getAccessToken');
+const getAccessToken = require("./getAccessToken");
 
 module.exports = () =>
   new Promise((resolve, reject) => {
@@ -26,8 +26,33 @@ module.exports = () =>
         err
       );
     }
-    const client = new Client(credentials);
-    getAccessToken(client).then(authorizedClient => {
-      resolve(authorizedClient);
-    }).catch(err => reject(err));
+    let rawToken;
+    try {
+      rawToken = readFileSync(TOKEN_PATH);
+    } catch (err) {
+      // no rejection because it's OK if there is no token on the local
+      // file system – we'll have the user generate one in this case
+      const client = new Client(credentials);
+      getAccessToken(client)
+        .then(authorizedClient => {
+          resolve(authorizedClient);
+        })
+        .catch(err => reject(err));
+      return;
+    }
+    let token;
+    try {
+      ({ token } = JSON.parse(rawToken));
+    } catch (err) {
+      return rejectWithCustomMessage(
+        `Error parsing token from token file ${TOKEN_PATH}`,
+        reject,
+        err
+      );
+    }
+    resolve(new Client({
+      token,
+      sandbox: credentials.sandbox,
+      china: credentials.china
+    }));
   });

@@ -1,11 +1,13 @@
 const readline = require("readline");
+const fs = require("fs");
 const { Client } = require("evernote");
 const { rejectWithCustomMessage } = require("../utils");
+const { REDIRECT_URL, TOKEN_PATH } = require("./constants");
 
 module.exports = client => {
   return new Promise((resolve, reject) => {
     client.getRequestToken(
-      "https://pahund.github.io/whats-going-on",
+      REDIRECT_URL,
       (err, oauthToken, oauthTokenSecret) => {
         if (err) {
           return rejectWithCustomMessage(
@@ -38,13 +40,24 @@ module.exports = client => {
                   err
                 );
               }
-              resolve(
-                new Client({
-                  token: oauthToken,
-                  sandbox: client.sandbox,
-                  china: client.china
-                })
-              );
+              // Store the token to disk for later program executions
+              fs.writeFile(TOKEN_PATH, `{"token":"${oauthToken}"}`, err => {
+                if (err) {
+                  return rejectWithCustomMessage(
+                    `Failed to store Evernote token on local file system at ${TOKEN_PATH}`,
+                    reject,
+                    err
+                  );
+                }
+                console.log("Evernote token stored to", TOKEN_PATH);
+                resolve(
+                  new Client({
+                    token: oauthToken,
+                    sandbox: client.sandbox,
+                    china: client.china
+                  })
+                );
+              });
             }
           );
         });
