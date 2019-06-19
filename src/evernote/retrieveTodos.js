@@ -1,4 +1,6 @@
 const { NOTEBOOK_ID, MAX_TODOS } = require("./constants");
+const { Todo } = require('../model');
+
 const {
   NoteStore: { NoteFilter, NotesMetadataResultSpec }
 } = require("evernote");
@@ -22,11 +24,11 @@ module.exports = async client => {
   return rawResults.notes
     .filter(note => note.attributes.reminderOrder !== null)
     .map(({ guid, title, attributes: { reminderTime, reminderDoneTime, sourceURL } }) => {
-      const todo = {
+      const todo = new Todo({
         text: title,
         done: reminderDoneTime !== null,
-        guid
-      };
+        id: guid
+      });
       if (reminderTime) {
         todo.date = new Date(reminderTime);
       }

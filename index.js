@@ -6,6 +6,8 @@ const { isDevMode } = require("./src/utils");
   let data;
   try {
     const client = await evn.authorize();
+    // await evn.fetchTodo(client);
+    // await evn.createTodo(client);
     const evernote = await evn.retrieveTodos(client);
     const auth = await smd.authorize();
     await smd.downloadMindMap(auth);
@@ -20,6 +22,13 @@ const { isDevMode } = require("./src/utils");
     console.error(isDevMode() ? err.stack : err.message);
     process.exit(1);
   }
-  console.log(`Todo data:\n${JSON.stringify(data, null, 4)}`);
+  Object.entries(data).forEach(([key, value]) => {
+    console.log();
+    console.log('='.repeat(key.length));
+    console.log(key.toUpperCase());
+    console.log('='.repeat(key.length));
+    console.log();
+    console.log(value.join('\n\n'));
+  });
   process.exit(0);
 })();

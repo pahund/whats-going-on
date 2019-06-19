@@ -1,6 +1,7 @@
 const xml2js = require("xml2js");
 const parser = new xml2js.Parser();
 const { rejectWithCustomMessage } = require("../utils");
+const { Todo } = require('../model');
 
 const getTopics = data =>
   data["simplemind-mindmaps"].mindmap[0].topics[0].topic;
@@ -8,11 +9,11 @@ const getTopics = data =>
 const filterTopicsForTodos = ({ $: { checkbox } }) => checkbox === "true";
 
 const mapTopicsToTodoItems = ({ $: { text, date, progress, guid }, link }) => {
-  const todoItem = {
+  const todoItem = new Todo({
     text: prepareTitle(text),
     done: progress === "100",
-    guid
-  };
+    id: guid
+  });
   if (date) {
     todoItem.date = prepareDate(date);
   }
