@@ -12,7 +12,7 @@ const mapTopicsToTodoItems = ({ $: { text, date, progress, guid }, link }) => {
   const todoItem = new Todo({
     text: prepareTitle(text),
     done: progress === "100",
-    id: guid
+    simpleMind: { id: guid }
   });
   if (date) {
     todoItem.date = prepareDate(date);

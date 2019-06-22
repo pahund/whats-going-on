@@ -27,7 +27,7 @@ module.exports = async client => {
       const todo = new Todo({
         text: title,
         done: reminderDoneTime !== null,
-        id: guid
+        evernote: { id: guid }
       });
       if (reminderTime) {
         todo.date = new Date(reminderTime);
