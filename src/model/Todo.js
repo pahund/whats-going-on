@@ -11,29 +11,29 @@ const validUrlPattern = new RegExp(
 const data = Symbol("data");
 
 class Todo {
-  constructor({ text, done, evernote = {}, simpleMind = {}, date, url }) {
+  constructor({ title, done, evernote = {}, simpleMind = {}, deadline, url }) {
     if (!evernote.id && !simpleMind.id) {
       throw new Error(
         "Either Evernote of SimpleMind ID needs to be set (or both)"
       );
     }
     this[data] = { evernote, simpleMind };
-    this.text = text;
+    this.title = title;
     this.done = done;
-    this.date = date;
+    this.deadline = deadline;
     this.url = url;
   }
-  set text(text) {
-    if (!text) {
-      throw new Error("Text needs to be set");
+  set title(title) {
+    if (!title) {
+      throw new Error("Title needs to be set");
     }
-    if (typeof text !== "string") {
-      throw new Error("Text needs to be a string");
+    if (typeof title !== "string") {
+      throw new Error("Title needs to be a string");
     }
-    this[data].text = text;
+    this[data].title = title;
   }
-  get text() {
-    return this[data].text;
+  get title() {
+    return this[data].title;
   }
   set done(done) {
     this[data].done = done === true;
@@ -71,18 +71,18 @@ class Todo {
   get simpleMindId() {
     return this[data].simpleMind.id;
   }
-  set date(date) {
-    if (!date) {
-      this[data].date = null;
+  set deadline(deadline) {
+    if (!deadline) {
+      this[data].deadline = null;
       return;
     }
-    if (!(date instanceof Date)) {
-      throw new Error("Date needs to be a JavaScript date object");
+    if (!(deadline instanceof Date)) {
+      throw new Error("Deadline needs to be a JavaScript date object");
     }
-    this[data].date = date;
+    this[data].deadline = deadline;
   }
-  get date() {
-    return this[data].date;
+  get deadline() {
+    return this[data].deadline;
   }
   set url(url) {
     if (!url) {
@@ -99,7 +99,7 @@ class Todo {
   }
   toString() {
     const tokens = [];
-    tokens.push(`Text:          ${this.text}`);
+    tokens.push(`Title:         ${this.title}`);
     tokens.push(`Done:          ${this.done}`);
     if (this.evernoteId) {
       tokens.push(`ID Evernote:   ${this.evernoteId}`);
@@ -107,8 +107,8 @@ class Todo {
     if (this.simpleMindId) {
       tokens.push(`ID SimpleMind: ${this.simpleMindId}`);
     }
-    if (this.date) {
-      tokens.push(`Date:          ${this.date}`);
+    if (this.deadline) {
+      tokens.push(`Deadline:      ${this.deadline}`);
     }
     if (this.url) {
       tokens.push(`URL:           ${this.url}`);

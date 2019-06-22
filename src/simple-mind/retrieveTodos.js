@@ -10,12 +10,12 @@ const filterTopicsForTodos = ({ $: { checkbox } }) => checkbox === "true";
 
 const mapTopicsToTodoItems = ({ $: { text, date, progress, guid }, link }) => {
   const todoItem = new Todo({
-    text: prepareTitle(text),
+    title: prepareTitle(text),
     done: progress === "100",
     simpleMind: { id: guid }
   });
   if (date) {
-    todoItem.date = prepareDate(date);
+    todoItem.deadline = prepareDate(date);
   }
   if (link) {
     todoItem.url = link[0].$.urllink;

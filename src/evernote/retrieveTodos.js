@@ -25,12 +25,12 @@ module.exports = async client => {
     .filter(note => note.attributes.reminderOrder !== null)
     .map(({ guid, title, attributes: { reminderTime, reminderDoneTime, sourceURL } }) => {
       const todo = new Todo({
-        text: title,
+        title,
         done: reminderDoneTime !== null,
         evernote: { id: guid }
       });
       if (reminderTime) {
-        todo.date = new Date(reminderTime);
+        todo.deadline = new Date(reminderTime);
       }
       if (sourceURL) {
         todo.url = sourceURL;
