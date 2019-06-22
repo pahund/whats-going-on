@@ -11,13 +11,10 @@ const validUrlPattern = new RegExp(
 const data = Symbol("data");
 
 class Todo {
-  constructor({ title, done, evernote = {}, simpleMind = {}, deadline, url }) {
-    if (!evernote.id && !simpleMind.id) {
-      throw new Error(
-        "Either Evernote of SimpleMind ID needs to be set (or both)"
-      );
-    }
-    this[data] = { evernote, simpleMind };
+  constructor({ title, done, evernote = { id: null }, simpleMind = { id: null }, deadline, url } = {}) {
+    this[data] = { evernote: {}, simpleMind: {} };
+    this.evernoteId = evernote.id;
+    this.simpleMindId = simpleMind.id;
     this.title = title;
     this.done = done;
     this.deadline = deadline;
@@ -36,37 +33,33 @@ class Todo {
     return this[data].title;
   }
   set done(done) {
-    this[data].done = done === true;
+    this[data].done = done === true || done === 'true';
   }
   get done() {
     return this[data].done;
   }
   set evernoteId(id) {
     if (!id) {
-      if (!this.simpleMindId) {
-        throw new Error("ID needs to be set");
-      }
       this[data].evernote.id = null;
+      return;
     }
     if (typeof id !== "string") {
       throw new Error("ID needs to be a string");
     }
-    this[data].id = id;
+    this[data].evernote.id = id;
   }
   get evernoteId() {
     return this[data].evernote.id;
   }
   set simpleMindId(id) {
     if (!id) {
-      if (!this.evernoteId) {
-        throw new Error("ID needs to be set");
-      }
       this[data].simpleMind.id = null;
+      return;
     }
     if (typeof id !== "string") {
       throw new Error("ID needs to be a string");
     }
-    this[data].id = id;
+    this[data].simpleMind.id = id;
   }
   get simpleMindId() {
     return this[data].simpleMind.id;
@@ -77,7 +70,7 @@ class Todo {
       return;
     }
     if (!(deadline instanceof Date)) {
-      throw new Error("Deadline needs to be a JavaScript date object");
+      throw new Error("Deadline needs to be a date object");
     }
     this[data].deadline = deadline;
   }

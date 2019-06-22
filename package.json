@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest src"
   },
   "author": "Patrick Hund <pahund@team.mobile.de> (https://ebaytech.berlin/)",
   "license": "MIT",
   "dependencies": {
     "evernote": "^2.0.5",
     "googleapis": "^40.0.0",
+    "jest": "^24.8.0",
     "jszip": "^3.2.1",
     "xml2js": "^0.4.19"
   }
