@@ -5,5 +5,5 @@ const { authorize, fetchTodo } = require("../src/evernote");
 (async () => {
   const client = await authorize();
   const note = await fetchTodo(client);
-  console.log('note:', note);
+  console.log("note:", note);
 })();

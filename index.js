@@ -20,16 +20,13 @@ const { isDevMode } = require("./src/utils");
     console.error(isDevMode() ? err.stack : err.message);
     process.exit(1);
   }
-  Object.entries(data).forEach(([
-key,
-value
-]) => {
+  Object.entries(data).forEach(([key, value]) => {
     console.log();
-    console.log('='.repeat(key.length));
+    console.log("=".repeat(key.length));
     console.log(key.toUpperCase());
-    console.log('='.repeat(key.length));
+    console.log("=".repeat(key.length));
     console.log();
-    console.log(value.join('\n\n'));
+    console.log(value.join("\n\n"));
   });
   process.exit(0);
 })();

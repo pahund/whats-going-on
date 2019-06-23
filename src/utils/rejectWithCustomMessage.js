@@ -9,14 +9,16 @@ module.exports = (message, reject, err = new Error()) => {
     reject(err);
     return;
   }
-  let str = '';
-  err.message.on('data', s => str += s).on('end', () => {
-    try {
-      const finalErr= JSON.parse(str).error;
-      finalErr.message = `${message} – ${finalErr.message}`;
-      reject(finalErr);
-    } catch (e) {
-      reject(new Error(message));
-    }
-  });
+  let str = "";
+  err.message
+    .on("data", s => (str += s))
+    .on("end", () => {
+      try {
+        const finalErr = JSON.parse(str).error;
+        finalErr.message = `${message} – ${finalErr.message}`;
+        reject(finalErr);
+      } catch (e) {
+        reject(new Error(message));
+      }
+    });
 };

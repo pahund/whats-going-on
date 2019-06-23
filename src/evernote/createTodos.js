@@ -1,5 +1,5 @@
 const createTodo = require("./createTodo");
-const { REQUEST_BATCH_SIZE,REQUEST_BATCH_INTERVAL } = require("./constants");
+const { REQUEST_BATCH_SIZE, REQUEST_BATCH_INTERVAL } = require("./constants");
 const { executedBatched } = require("../utils");
 
 module.exports = async (client, todos) =>

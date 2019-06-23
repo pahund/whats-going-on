@@ -283,9 +283,9 @@ describe("When I create a todo", () => {
     describe("with an invalid deadline", () => {
       describe("an error", () => {
         it("is thrown", () => {
-          expect(() => new Todo({ title }).change({ deadline: invalidDeadline })).toThrow(
-            "Deadline needs to be a date object"
-          );
+          expect(() =>
+            new Todo({ title }).change({ deadline: invalidDeadline })
+          ).toThrow("Deadline needs to be a date object");
         });
       });
     });

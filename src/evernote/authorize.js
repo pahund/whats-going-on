@@ -50,9 +50,11 @@ module.exports = () =>
         err
       );
     }
-    resolve(new Client({
-      token,
-      sandbox: credentials.sandbox,
-      china: credentials.china
-    }));
+    resolve(
+      new Client({
+        token,
+        sandbox: credentials.sandbox,
+        china: credentials.china
+      })
+    );
   });

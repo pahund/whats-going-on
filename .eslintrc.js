@@ -13,13 +13,13 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2018
   },
-  plugins: ["jest"],
+  plugins: ["jest", "prettier"],
   rules: {
+    "prettier/prettier": "error",
     "accessor-pairs": "error",
     "array-bracket-newline": "error",
     "array-bracket-spacing": ["error", "never"],
     "array-callback-return": "error",
-    "array-element-newline": "error",
     "arrow-body-style": "off",
     "arrow-parens": ["error", "as-needed"],
     "arrow-spacing": [
