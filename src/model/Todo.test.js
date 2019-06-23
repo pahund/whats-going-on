@@ -1,13 +1,14 @@
 const Todo = require("./Todo");
 
 const title = "my title";
+const changedTitle = "my changed title";
 const evernoteId = "1224bdef3745ffa0";
 const simpleMindId = "5f37ec4fa0097e";
 const invalidId = 666;
 const deadline = new Date("1971-10-10");
 const invalidDeadline = "blabla";
-const url = 'https://github.com';
-const invalidUrl = 'blabla';
+const url = "https://github.com";
+const invalidUrl = "blabla";
 const doneTrue = true;
 const doneTrueStr = "true";
 const doneFalse = false;
@@ -148,6 +149,154 @@ describe("When I create a todo", () => {
     describe("the resulting todo", () => {
       it("has the correct title and URL set to null", () =>
         expect(new Todo({ title, url: undefined })).toMatchSnapshot());
+    });
+  });
+  describe("and then clone it", () => {
+    let original;
+    let clone;
+    beforeEach(() => {
+      original = new Todo({
+        title,
+        done: doneTrue,
+        deadline,
+        url,
+        evernote: { id: evernoteId },
+        simpleMind: { id: simpleMindId }
+      });
+      clone = original.clone();
+    });
+    describe("the clone", () => {
+      it("is deep equal to the original", () =>
+        expect(clone).toEqual(original));
+      it("is a different instance than the original", () => {
+        expect(clone).not.toBe(original);
+      });
+    });
+  });
+  describe("and try to change the title", () => {
+    describe("an error", () => {
+      it("is thrown", () => {
+        expect(() => (new Todo({ title }).title = "new title")).toThrow(
+          "Cannot set title, todos are immutable – use change instead"
+        );
+      });
+    });
+  });
+  describe("and try to change the done state", () => {
+    describe("an error", () => {
+      it("is thrown", () => {
+        expect(() => (new Todo({ title }).done = true)).toThrow(
+          "Cannot set done, todos are immutable – use change instead"
+        );
+      });
+    });
+  });
+  describe("and try to change the URL", () => {
+    describe("an error", () => {
+      it("is thrown", () => {
+        expect(() => (new Todo({ title }).url = url)).toThrow(
+          "Cannot set url, todos are immutable – use change instead"
+        );
+      });
+    });
+  });
+  describe("and try to change the deadline", () => {
+    describe("an error", () => {
+      it("is thrown", () => {
+        expect(() => (new Todo({ title }).deadline = deadline)).toThrow(
+          "Cannot set deadline, todos are immutable – use change instead"
+        );
+      });
+    });
+  });
+  describe("and try to change the Evernote ID", () => {
+    describe("an error", () => {
+      it("is thrown", () => {
+        expect(() => (new Todo({ title }).evernoteId = evernoteId)).toThrow(
+          "Cannot set evernoteId, todos are immutable – use change instead"
+        );
+      });
+    });
+  });
+  describe("and try to change the SimpleMind ID", () => {
+    describe("an error", () => {
+      it("is thrown", () => {
+        expect(() => (new Todo({ title }).simpleMindId = simpleMindId)).toThrow(
+          "Cannot set simpleMindId, todos are immutable – use change instead"
+        );
+      });
+    });
+  });
+  describe("and create a changed version", () => {
+    describe("with a different title", () => {
+      describe("the new todo", () => {
+        it("has the new title", () => {
+          expect(
+            new Todo({ title }).change({ title: changedTitle })
+          ).toMatchSnapshot();
+        });
+      });
+    });
+    describe("with a different done status", () => {
+      describe("the new todo", () => {
+        it("has the new done status", () => {
+          expect(
+            new Todo({ title }).change({ done: doneTrue })
+          ).toMatchSnapshot();
+        });
+      });
+    });
+    describe("with a different Evernote ID", () => {
+      describe("the new todo", () => {
+        it("has the new Evernote ID", () => {
+          expect(
+            new Todo({ title }).change({ evernote: { id: evernoteId } })
+          ).toMatchSnapshot();
+        });
+      });
+    });
+    describe("with a different SimpleMind ID", () => {
+      describe("the new todo", () => {
+        it("has the new SimpleMind ID", () => {
+          expect(
+            new Todo({ title }).change({ simpleMind: { id: simpleMindId } })
+          ).toMatchSnapshot();
+        });
+      });
+    });
+    describe("with a different deadline", () => {
+      describe("the new todo", () => {
+        it("has the new deadline", () => {
+          expect(new Todo({ title }).change({ deadline })).toMatchSnapshot();
+        });
+      });
+    });
+    describe("with a different URL", () => {
+      describe("the new todo", () => {
+        it("has the new URL", () => {
+          expect(new Todo({ title }).change({ url })).toMatchSnapshot();
+        });
+      });
+    });
+  });
+  describe("and try to create a changed version", () => {
+    describe("with an invalid deadline", () => {
+      describe("an error", () => {
+        it("is thrown", () => {
+          expect(() => new Todo({ title }).change({ deadline: invalidDeadline })).toThrow(
+            "Deadline needs to be a date object"
+          );
+        });
+      });
+    });
+    describe("with an invalid URL", () => {
+      describe("an error", () => {
+        it("is thrown", () => {
+          expect(() => new Todo({ title }).change({ url: invalidUrl })).toThrow(
+            "URL is not valid format"
+          );
+        });
+      });
     });
   });
 });

@@ -1,5 +1,5 @@
 const { NOTEBOOK_ID, MAX_TODOS } = require("./constants");
-const { Todo } = require('../model');
+const { Todo } = require("../model");
 
 const {
   NoteStore: { NoteFilter, NotesMetadataResultSpec }
@@ -23,18 +23,18 @@ module.exports = async client => {
   );
   return rawResults.notes
     .filter(note => note.attributes.reminderOrder !== null)
-    .map(({ guid, title, attributes: { reminderTime, reminderDoneTime, sourceURL } }) => {
-      const todo = new Todo({
+    .map(
+      ({
+        guid,
         title,
-        done: reminderDoneTime !== null,
-        evernote: { id: guid }
-      });
-      if (reminderTime) {
-        todo.deadline = new Date(reminderTime);
-      }
-      if (sourceURL) {
-        todo.url = sourceURL;
-      }
-      return todo;
-    });
+        attributes: { reminderTime, reminderDoneTime, sourceURL }
+      }) =>
+        new Todo({
+          title,
+          done: reminderDoneTime !== null,
+          evernote: { id: guid },
+          deadline: reminderTime ? new Date(reminderTime) : null,
+          url: sourceURL
+        })
+    );
 };

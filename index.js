@@ -5,14 +5,12 @@ const { isDevMode } = require("./src/utils");
 (async () => {
   let data;
   try {
-    const client = await evn.authorize();
-    // await evn.fetchTodo(client);
-    // await evn.createTodo(client);
-    const evernote = await evn.retrieveTodos(client);
-    const auth = await smd.authorize();
-    await smd.downloadMindMap(auth);
-    const xml = await smd.retrieveMindMapData();
-    const simpleMind = await smd.retrieveTodos(xml);
+    const evernoteClient = await evn.authorize();
+    const evernote = await evn.retrieveTodos(evernoteClient);
+    const simpleMindAuth = await smd.authorize();
+    await smd.downloadMindMap(simpleMindAuth);
+    const simpleMindRawData = await smd.retrieveMindMapData();
+    const simpleMind = await smd.retrieveTodos(simpleMindRawData);
     await smd.cleanUp();
     data = {
       evernote,

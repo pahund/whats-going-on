@@ -1,27 +1,21 @@
 const xml2js = require("xml2js");
 const parser = new xml2js.Parser();
 const { rejectWithCustomMessage } = require("../utils");
-const { Todo } = require('../model');
+const { Todo } = require("../model");
 
 const getTopics = data =>
   data["simplemind-mindmaps"].mindmap[0].topics[0].topic;
 
 const filterTopicsForTodos = ({ $: { checkbox } }) => checkbox === "true";
 
-const mapTopicsToTodoItems = ({ $: { text, date, progress, guid }, link }) => {
-  const todoItem = new Todo({
+const mapTopicsToTodoItems = ({ $: { text, date, progress, guid }, link }) =>
+  new Todo({
     title: prepareTitle(text),
     done: progress === "100",
-    simpleMind: { id: guid }
+    simpleMind: { id: guid },
+    deadline: date ? prepareDate(date) : null,
+    url: link ? link[0].$.urllink : null
   });
-  if (date) {
-    todoItem.deadline = prepareDate(date);
-  }
-  if (link) {
-    todoItem.url = link[0].$.urllink;
-  }
-  return todoItem;
-};
 
 const prepareDate = str =>
   new Date(str.replace(/^([0-9]{2})-([0-9]{2})-([0-9]{4})$/, "$3-$2-$1"));

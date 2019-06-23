@@ -1,5 +1,107 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`When I create a todo and create a changed version with a different Evernote ID the new todo has the new Evernote ID 1`] = `
+Todo {
+  Symbol(data): Object {
+    "deadline": null,
+    "done": false,
+    "evernote": Object {
+      "id": "1224bdef3745ffa0",
+    },
+    "simpleMind": Object {
+      "id": null,
+    },
+    "title": "my title",
+    "url": null,
+  },
+}
+`;
+
+exports[`When I create a todo and create a changed version with a different SimpleMind ID the new todo has the new SimpleMind ID 1`] = `
+Todo {
+  Symbol(data): Object {
+    "deadline": null,
+    "done": false,
+    "evernote": Object {
+      "id": null,
+    },
+    "simpleMind": Object {
+      "id": "5f37ec4fa0097e",
+    },
+    "title": "my title",
+    "url": null,
+  },
+}
+`;
+
+exports[`When I create a todo and create a changed version with a different URL the new todo has the new URL 1`] = `
+Todo {
+  Symbol(data): Object {
+    "deadline": null,
+    "done": false,
+    "evernote": Object {
+      "id": null,
+    },
+    "simpleMind": Object {
+      "id": null,
+    },
+    "title": "my title",
+    "url": "https://github.com",
+  },
+}
+`;
+
+exports[`When I create a todo and create a changed version with a different deadline the new todo has the new deadline 1`] = `
+Todo {
+  Symbol(data): Object {
+    "deadline": 1971-10-10T00:00:00.000Z,
+    "done": false,
+    "evernote": Object {
+      "id": null,
+    },
+    "simpleMind": Object {
+      "id": null,
+    },
+    "title": "my title",
+    "url": null,
+  },
+}
+`;
+
+exports[`When I create a todo and create a changed version with a different done status the new todo has the new done status 1`] = `
+Todo {
+  Symbol(data): Object {
+    "deadline": null,
+    "done": true,
+    "evernote": Object {
+      "id": null,
+    },
+    "simpleMind": Object {
+      "id": null,
+    },
+    "title": "my title",
+    "url": null,
+  },
+}
+`;
+
+exports[`When I create a todo and create a changed version with a different title the new todo has the new title 1`] = `
+Todo {
+  Symbol(data): Object {
+    "deadline": null,
+    "done": false,
+    "evernote": Object {
+      "id": null,
+    },
+    "simpleMind": Object {
+      "id": null,
+    },
+    "title": "my changed title",
+    "url": null,
+  },
+}
+`;
+
 exports[`When I create a todo with a title and URL set to undefined the resulting todo has the correct title and URL set to null 1`] = `
 Todo {
   Symbol(data): Object {

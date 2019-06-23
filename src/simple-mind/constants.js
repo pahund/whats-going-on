@@ -7,5 +7,5 @@ module.exports = {
   // If modifying these scopes, delete google-drive-token.json.
   SCOPES: ["https://www.googleapis.com/auth/drive.readonly"],
   // ID of the file “whats-going-on.smmx” on Google Drive
-  FILE_ID: "1wDkYtOXUPn4eer9rfMWmYiSaAoPeEJaJ"
+  FILE_ID: "1nuYwOYGNcBQ0NA06hyafUcAvkvhk7bOv"
 };
