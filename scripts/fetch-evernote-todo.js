@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {authorize, fetchTodo} = require("../src/evernote");
+const { authorize, fetchTodo } = require("../src/evernote");
 
 (async () => {
   const client = await authorize();

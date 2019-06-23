@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node .",
     "test": "jest src",
+    "lint": "eslint . --fix",
     "create-evernote-todo": "scripty",
     "create-evernote-todos": "scripty",
     "fetch-evernote-todo": "scripty",
