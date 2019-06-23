@@ -5,24 +5,23 @@ const { rejectWithCustomMessage } = require("../utils");
 
 module.exports = auth =>
   withDrive(auth)(
-    drive =>
-      new Promise(async (resolve, reject) => {
-        console.log(`Writing to ${SMMX_PATH}`);
-        const dest = fs.createWriteStream(SMMX_PATH);
-        let progress = 0;
-        let res;
-        try {
-          res = await drive.files.get(
-            { fileId: FILE_ID, alt: "media" },
-            { responseType: "stream" }
-          );
-        } catch (err) {
-          return rejectWithCustomMessage(
-            `Error downloading file with ID ${FILE_ID} from Google Drive`,
-            reject,
-            err
-          );
-        }
+    async drive => {
+      console.log(`Writing to ${SMMX_PATH}`);
+      const dest = fs.createWriteStream(SMMX_PATH);
+      let progress = 0;
+      let res;
+      try {
+        res = await drive.files.get(
+          { fileId: FILE_ID, alt: "media" },
+          { responseType: "stream" }
+        );
+      } catch (err) {
+        throw new Error(
+          `Error downloading file with ID ${FILE_ID} from Google Drive`,
+          err
+        );
+      }
+      return new Promise((resolve, reject) => {
         res.data
           .on("end", () => {
             console.log("\nDone downloading file.");
@@ -46,4 +45,5 @@ module.exports = auth =>
           })
           .pipe(dest);
       })
+    }
   );
