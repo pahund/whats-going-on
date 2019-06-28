@@ -1,3 +1,3 @@
-const path = require("path");
+const path = require('path');
 
-module.exports = fileName => path.join(__dirname, "../..", fileName);
+module.exports = fileName => path.join(__dirname, '../..', fileName);

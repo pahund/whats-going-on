@@ -1,324 +1,401 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`When I create a todo and create a changed version with a different Evernote ID the new todo has the new Evernote ID 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": "1224bdef3745ffa0",
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": "1224bdef3745ffa0",
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo and create a changed version with a different SimpleMind ID the new todo has the new SimpleMind ID 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": "5f37ec4fa0097e",
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": "5f37ec4fa0097e",
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo and create a changed version with a different URL the new todo has the new URL 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": "https://github.com",
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": "https://github.com",
 }
 `;
 
 exports[`When I create a todo and create a changed version with a different deadline the new todo has the new deadline 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": 1971-10-10T00:00:00.000Z,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": 1971-10-10T00:00:00.000Z,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo and create a changed version with a different done status the new todo has the new done status 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": true,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": true,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo and create a changed version with a different title the new todo has the new title 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my changed title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my changed title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo and create a changed version with no Evernote ID while previously there was one the new todo has no Evernote ID 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo and create a changed version with no SimpleMind ID while previously there was one the new todo has no SimpleMind ID 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo and create a changed version with no URL while previously there was one the new todo has no URL 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo and create a changed version with no deadline while previously there was one the new todo has no deadline 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED:",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and URL set to undefined the resulting todo has the correct title and URL set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a SimpleMind ID the resulting todo has the correct title and SimpleMind ID, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": "5f37ec4fa0097e",
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": "5f37ec4fa0097e",
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a and status done set to false the resulting todo has the correct title, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a and status done set to string “false” the resulting todo has the correct title, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a and status done set to string “true” the resulting todo has the correct title, done set to true and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": true,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": true,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a and status done set to true the resulting todo has the correct title, done set to true and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": true,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": true,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a valid URL the resulting todo has the correct title and URL 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": "https://github.com",
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": "https://github.com",
+}
+`;
+
+exports[`When I create a todo with a title and a valid deadline string the resulting todo has the correct title and deadline 1`] = `
+Object {
+  "deadline": 1971-10-10T00:00:00.000Z,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and a valid deadline the resulting todo has the correct title and deadline 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": 1971-10-10T00:00:00.000Z,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": 1971-10-10T00:00:00.000Z,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and an Evernote ID the resulting todo has the correct title and Evernote ID, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": "1224bdef3745ffa0",
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": "1224bdef3745ffa0",
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and an undefined Evernote ID the resulting todo has the correct title, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and an undefined SimpleMind ID the resulting todo has the correct title, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;
 
 exports[`When I create a todo with a title and deadline set to undefined the resulting todo has the correct title and deadline set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo with everything when I convert it to JSON the resulting object is a JavaScript object with all the todo properties 1`] = `
+Object {
+  "deadline": 1971-10-10T00:00:00.000Z,
+  "done": true,
+  "evernote": Object {
+    "id": "1224bdef3745ffa0",
+  },
+  "simpleMind": Object {
+    "id": "5f37ec4fa0097e",
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": "https://github.com",
 }
 `;
 
 exports[`When I create a todo with just a title the resulting todo has the correct title, done set to false and everything else set to null 1`] = `
-Todo {
-  Symbol(data): Object {
-    "deadline": null,
-    "done": false,
-    "evernote": Object {
-      "id": null,
-    },
-    "simpleMind": Object {
-      "id": null,
-    },
-    "title": "my title",
-    "url": null,
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
   },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
 }
 `;

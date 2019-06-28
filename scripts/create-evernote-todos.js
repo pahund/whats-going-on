@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-const { authorize, createTodos } = require("../src/evernote");
-const { Todo } = require("../src/model");
+const { authorize, createTodos } = require('../src/evernote');
+const { Todo } = require('../src/model');
 
 (async () => {
   const client = await authorize();

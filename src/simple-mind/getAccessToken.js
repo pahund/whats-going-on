@@ -1,31 +1,24 @@
-const readline = require("readline");
-const fs = require("fs");
-const { TOKEN_PATH, SCOPES } = require("./constants");
-const { rejectWithCustomMessage } = require("../utils");
+const readline = require('readline');
+const fs = require('fs');
+const { TOKEN_PATH, SCOPES } = require('./constants');
+const { rejectWithCustomMessage } = require('../utils');
 
 module.exports = oAuth2Client =>
   new Promise((resolve, reject) => {
     const authUrl = oAuth2Client.generateAuthUrl({
-      access_type: "offline",
+      access_type: 'offline',
       scope: SCOPES
     });
-    console.log(
-      "Authorize Google Drive for this app by visiting this url:",
-      authUrl
-    );
+    console.log('Authorize Google Drive for this app by visiting this url:', authUrl);
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
-    rl.question("Enter the code from that page here: ", code => {
+    rl.question('Enter the code from that page here: ', code => {
       rl.close();
       oAuth2Client.getToken(code, (err, token) => {
         if (err) {
-          return rejectWithCustomMessage(
-            "Error verifying access token",
-            reject,
-            err
-          );
+          return rejectWithCustomMessage('Error verifying access token', reject, err);
         }
         oAuth2Client.setCredentials(token);
         // Store the token to disk for later program executions
@@ -37,7 +30,7 @@ module.exports = oAuth2Client =>
               err
             );
           }
-          console.log("Google Drive token stored to", TOKEN_PATH);
+          console.log('Google Drive token stored to', TOKEN_PATH);
           resolve();
         });
       });

@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cache is empty and I call saveCache the cache written to the local file system is empty 1`] = `"[]"`;
+
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cached item has only a SimpleMind ID and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cached item has only an Evernote ID and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has only a SimpleMind ID and the cached item has both and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has only an Evernote ID and the cached item has both and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and a todo was added in Evernote and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system contains the todo 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":null},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and a todo was added in Evernote and I call the loadCache and synchronize functions the result is that todo is added to SimpleMind 1`] = `
+Object {
+  "evernote": Array [],
+  "simpleMind": Array [
+    Object {
+      "deadline": null,
+      "done": false,
+      "evernote": Object {
+        "id": "777",
+      },
+      "simpleMind": Object {
+        "id": null,
+      },
+      "status": "ADDED",
+      "title": "Singen",
+      "url": null,
+    },
+  ],
+}
+`;
+
+exports[`When I instantiate a synchronizer and a todo was added in SimpleMind and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system contains the todo 1`] = `"[{\\"evernote\\":{\\"id\\":null},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and a todo was added in SimpleMind and I call the loadCache and synchronize functions the result is that todo is added to Evernote 1`] = `
+Object {
+  "evernote": Array [
+    Object {
+      "deadline": null,
+      "done": false,
+      "evernote": Object {
+        "id": null,
+      },
+      "simpleMind": Object {
+        "id": "666",
+      },
+      "status": "ADDED",
+      "title": "Singen",
+      "url": null,
+    },
+  ],
+  "simpleMind": Array [],
+}
+`;
+
+exports[`When I instantiate a synchronizer and a todo was deleted in Evernote and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system is empty 1`] = `"[]"`;
+
+exports[`When I instantiate a synchronizer and a todo was deleted in Evernote and I call the loadCache and synchronize functions the result is that todo is removed SimpleMind 1`] = `
+Object {
+  "evernote": Array [],
+  "simpleMind": Array [
+    Object {
+      "deadline": null,
+      "done": false,
+      "evernote": Object {
+        "id": null,
+      },
+      "simpleMind": Object {
+        "id": "666",
+      },
+      "status": "REMOVED",
+      "title": "Singen",
+      "url": null,
+    },
+  ],
+}
+`;
+
+exports[`When I instantiate a synchronizer and a todo was deleted in SimpleMind and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system is empty 1`] = `"[]"`;
+
+exports[`When I instantiate a synchronizer and a todo was deleted in SimpleMind and I call the loadCache and synchronize functions the result is that todo is removed Evernote 1`] = `
+Object {
+  "evernote": Array [
+    Object {
+      "deadline": null,
+      "done": false,
+      "evernote": Object {
+        "id": "777",
+      },
+      "simpleMind": Object {
+        "id": null,
+      },
+      "status": "REMOVED",
+      "title": "Singen",
+      "url": null,
+    },
+  ],
+  "simpleMind": Array [],
+}
+`;

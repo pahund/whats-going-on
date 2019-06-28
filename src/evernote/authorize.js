@@ -1,8 +1,8 @@
-const { readFileSync } = require("fs");
-const { CREDENTIALS_PATH, TOKEN_PATH } = require("./constants");
-const { rejectWithCustomMessage } = require("../utils");
-const { Client } = require("evernote");
-const getAccessToken = require("./getAccessToken");
+const { readFileSync } = require('fs');
+const { CREDENTIALS_PATH, TOKEN_PATH } = require('./constants');
+const { rejectWithCustomMessage } = require('../utils');
+const { Client } = require('evernote');
+const getAccessToken = require('./getAccessToken');
 
 module.exports = () =>
   new Promise((resolve, reject) => {
@@ -10,11 +10,7 @@ module.exports = () =>
     try {
       rawCredentials = readFileSync(CREDENTIALS_PATH);
     } catch (err) {
-      return rejectWithCustomMessage(
-        `Error loading client secret file ${CREDENTIALS_PATH}`,
-        reject,
-        err
-      );
+      return rejectWithCustomMessage(`Error loading client secret file ${CREDENTIALS_PATH}`, reject, err);
     }
     let credentials;
     try {
@@ -44,11 +40,7 @@ module.exports = () =>
     try {
       ({ token } = JSON.parse(rawToken));
     } catch (err) {
-      return rejectWithCustomMessage(
-        `Error parsing token from token file ${TOKEN_PATH}`,
-        reject,
-        err
-      );
+      return rejectWithCustomMessage(`Error parsing token from token file ${TOKEN_PATH}`, reject, err);
     }
     resolve(
       new Client({
