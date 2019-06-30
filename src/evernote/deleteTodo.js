@@ -1,4 +1,4 @@
-const withNoteStore = require('./withNoteStore');
+const { withNoteStore } = require('./utils');
 
 module.exports = (client, todo) =>
   withNoteStore(client)(async noteStore => {

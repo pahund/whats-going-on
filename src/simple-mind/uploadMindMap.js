@@ -1,5 +1,5 @@
 const { SMMX_PATH, FILE_ID } = require('./constants');
-const withDrive = require('./withDrive');
+const { withDrive } = require('./utils');
 const { createReadStream } = require('fs');
 
 module.exports = auth =>

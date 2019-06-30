@@ -1,7 +1,7 @@
 const readline = require('readline');
 const fs = require('fs');
-const { TOKEN_PATH, SCOPES } = require('./constants');
-const { rejectWithCustomMessage } = require('../utils');
+const { TOKEN_PATH, SCOPES } = require('../constants');
+const { rejectWithCustomMessage } = require('../../utils');
 
 module.exports = oAuth2Client =>
   new Promise((resolve, reject) => {

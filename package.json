@@ -1,19 +1,12 @@
 {
   "name": "whats-going-on",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Syncs todo items between SimpleMind and Evernote",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "test": "jest src",
     "lint": "eslint . --fix",
-    "create-evernote-todo": "scripty",
-    "create-evernote-todos": "scripty",
-    "change-simplemind-title": "scripty",
-    "fetch-evernote-todo": "scripty",
-    "list-simplemind-todos": "scripty",
-    "list-drive-files": "scripty",
-    "write-simplemind-todos-to-evernote": "scripty",
     "synchronize": "scripty"
   },
   "scripty": {

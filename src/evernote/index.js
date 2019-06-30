@@ -1,21 +1,19 @@
 const authorize = require('./authorize');
-const retrieveTodos = require('./retrieveTodos');
-const createTodo = require('./createTodo');
-const createTodos = require('./createTodos');
 const changeTodo = require('./changeTodo');
 const changeTodos = require('./changeTodos');
-const fetchTodo = require('./fetchTodo');
+const createTodo = require('./createTodo');
+const createTodos = require('./createTodos');
 const deleteTodo = require('./deleteTodo');
 const deleteTodos = require('./deleteTodos');
+const retrieveTodos = require('./retrieveTodos');
 
 module.exports = {
   authorize,
-  retrieveTodos,
+  changeTodo,
+  changeTodos,
   createTodo,
   createTodos,
-  fetchTodo,
   deleteTodo,
   deleteTodos,
-  changeTodo,
-  changeTodos
+  retrieveTodos
 };

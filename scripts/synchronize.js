@@ -69,9 +69,12 @@ const ev = require('../src/evernote');
 
   // Clean up
   sync.saveCache();
-  xml = builder.buildObject(simpleMindRawData);
-  await sm.writeMindMapXml(xml);
-  await sm.uploadMindMap(simpleMindAuth);
+  if (report.simpleMind.added + report.simpleMind.changed + report.simpleMind.removed > 0) {
+    // only update the smmx file on Google Drive if necessary
+    xml = builder.buildObject(simpleMindRawData);
+    await sm.writeMindMapXml(xml);
+    await sm.uploadMindMap(simpleMindAuth);
+  }
   await sm.cleanUp();
 
   // Report

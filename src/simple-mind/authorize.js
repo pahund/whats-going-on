@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 const { google } = require('googleapis');
 const { TOKEN_PATH, CREDENTIALS_PATH } = require('./constants');
-const getAccessToken = require('./getAccessToken');
+const { getAccessToken } = require('./utils');
 const { rejectWithCustomMessage } = require('../utils');
 
 module.exports = () =>

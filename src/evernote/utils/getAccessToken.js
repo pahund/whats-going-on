@@ -1,8 +1,8 @@
 const readline = require('readline');
 const fs = require('fs');
 const { Client } = require('evernote');
-const { rejectWithCustomMessage } = require('../utils');
-const { REDIRECT_URL, TOKEN_PATH } = require('./constants');
+const { rejectWithCustomMessage } = require('../../utils');
+const { REDIRECT_URL, TOKEN_PATH } = require('../constants');
 
 module.exports = client => {
   return new Promise((resolve, reject) => {

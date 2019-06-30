@@ -1,5 +1,5 @@
 const { SMMX_PATH, FILE_ID } = require('./constants');
-const withDrive = require('./withDrive');
+const { withDrive } = require('./utils');
 const { createWriteStream } = require('fs');
 const { rejectWithCustomMessage } = require('../utils');
 

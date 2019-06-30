@@ -2,7 +2,7 @@ const { readFileSync } = require('fs');
 const { CREDENTIALS_PATH, TOKEN_PATH } = require('./constants');
 const { rejectWithCustomMessage } = require('../utils');
 const { Client } = require('evernote');
-const getAccessToken = require('./getAccessToken');
+const { getAccessToken } = require('./utils');
 
 module.exports = () =>
   new Promise((resolve, reject) => {
