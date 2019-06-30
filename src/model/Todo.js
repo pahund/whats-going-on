@@ -18,7 +18,7 @@ class Todo {
   constructor({
     title,
     done,
-    evernote = { id: null },
+    evernote = { id: null, order: null },
     simpleMind = { id: null },
     deadline,
     url,
@@ -45,6 +45,13 @@ class Todo {
       throw new Error('ID needs to be a string');
     } else {
       this[data].evernote.id = evernote.id;
+    }
+    if (!evernote.order) {
+      this[data].evernote.order = null;
+    } else if (typeof evernote.order !== 'number') {
+      throw new Error('Evernote order needs to be a number');
+    } else {
+      this[data].evernote.order = evernote.order;
     }
     if (!simpleMind.id) {
       this[data].simpleMind.id = null;
@@ -133,6 +140,20 @@ class Todo {
     return this[changedData].evernote.id;
   }
   // noinspection JSMethodCanBeStatic,JSUnusedLocalSymbols
+  set evernoteOrder(order) {
+    throw new Error('Cannot set evernoteOrder, todos are immutable – use change instead');
+  }
+  get evernoteOrder() {
+    return this[data].evernote.order;
+  }
+  // noinspection JSMethodCanBeStatic,JSUnusedLocalSymbols
+  set evernoteOrderChanged(id) {
+    throw new Error('Cannot set evernoteOrderChanged, todos are immutable – use change instead');
+  }
+  get evernoteOrderChanged() {
+    return this[changedData].evernote.order;
+  }
+  // noinspection JSMethodCanBeStatic,JSUnusedLocalSymbols
   set simpleMindId(id) {
     throw new Error('Cannot set simpleMindId, todos are immutable – use change instead');
   }
@@ -179,13 +200,16 @@ class Todo {
     tokens.push(`${this.titleChanged ? '*' : ' '}Title:          ${this.title}`);
     tokens.push(`${this.doneChanged ? '*' : ' '}Done:           ${this.done}`);
     if (this.evernoteId) {
-      tokens.push(`${this.evernoteIdChanged ? '*' : ' '}ID Evernote:    ${this.evernoteId}`);
+      tokens.push(`${this.evernoteIdChanged ? '*' : ' '}Evernote ID:    ${this.evernoteId}`);
+    }
+    if (this.evernoteOrder) {
+      tokens.push(`${this.evernoteOrderChanged ? '*' : ' '}Evernote order: ${this.evernoteOrder}`);
     }
     if (this.simpleMindId) {
-      tokens.push(`${this.simpleMindIdChanged ? '*' : ' '}ID SimpleMind:  ${this.simpleMindId}`);
+      tokens.push(`${this.simpleMindIdChanged ? '*' : ' '}SimpleMind ID:  ${this.simpleMindId}`);
     }
     if (this.deadline) {
-      tokens.push(`${this.deadlineChanged ? '*' : ' '}Deadline:       ${this.deadline}`);
+      tokens.push(`${this.deadlineChanged ? '*' : ' '}Deadline:       ${this.deadline.toISOString()}`);
     }
     if (this.url) {
       tokens.push(`${this.urlChanged ? '*' : ' '}URL:            ${this.url}`);
@@ -198,7 +222,7 @@ class Todo {
       deadline: this.deadline,
       done: this.done,
       url: this.url,
-      evernote: { id: this.evernoteId },
+      evernote: { id: this.evernoteId, order: this.evernoteOrder },
       simpleMind: { id: this.simpleMindId }
     });
   }
@@ -209,7 +233,7 @@ class Todo {
       deadline: this.deadline,
       done: this.done,
       url: this.url,
-      evernote: { id: this.evernoteId },
+      evernote: { id: this.evernoteId, order: this.evernoteOrder },
       simpleMind: { id: this.simpleMindId },
       status: ADDED
     });
@@ -221,7 +245,7 @@ class Todo {
       deadline: this.deadline,
       done: this.done,
       url: this.url,
-      evernote: { id: this.evernoteId },
+      evernote: { id: this.evernoteId, order: this.evernoteOrder },
       simpleMind: { id: this.simpleMindId },
       status: REMOVED
     });
@@ -237,6 +261,7 @@ class Todo {
     return !this.hasSameDeadlineAs(other);
   }
 
+  // eslint-disable-next-line complexity
   change(
     { title, done, evernote = {}, simpleMind = {}, deadline, url } = {
       evernote: {},
@@ -247,7 +272,8 @@ class Todo {
       title: title === undefined ? this.title : title,
       done: done === undefined ? this.done : done,
       evernote: {
-        id: evernote.id === undefined ? this.evernoteId : evernote.id
+        id: evernote.id === undefined ? this.evernoteId : evernote.id,
+        order: evernote.order === undefined ? this.evernoteOrder : evernote.order
       },
       simpleMind: {
         id: simpleMind.id === undefined ? this.simpleMindId : simpleMind.id
@@ -270,6 +296,7 @@ class Todo {
         title !== undefined ||
         done !== undefined ||
         evernote.id !== undefined ||
+        evernote.order !== undefined ||
         simpleMind.id !== undefined ||
         deadline !== undefined ||
         url !== undefined

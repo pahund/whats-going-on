@@ -1,4 +1,4 @@
-module.exports = (simpleMindTodo, evernoteTodo, cachedTodo, changes) => {
+module.exports = ({ simpleMindTodo, evernoteTodo, cachedTodo, changes }) => {
   if (simpleMindTodo.title !== evernoteTodo.title) {
     if (cachedTodo.title === simpleMindTodo.title) {
       // title changed in Evernote

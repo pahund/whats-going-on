@@ -17,6 +17,8 @@ const doneTrue = true;
 const doneTrueStr = 'true';
 const doneFalse = false;
 const doneFalseStr = 'false';
+const order = 1561885947226;
+const invalidOrder = 'foo';
 
 describe('When I create a todo', () => {
   let todo;
@@ -64,6 +66,34 @@ describe('When I create a todo', () => {
               evernote: { id: invalidId }
             })
         ).toThrow('ID needs to be a string'));
+    });
+  });
+  describe('with a title and an Evernote order', () => {
+    beforeEach(() => (todo = new Todo({ title, evernote: { order } })));
+    describe('the resulting todo', () => {
+      it('has the correct title and Evernote order, done set to false and everything else set to null', () =>
+        expect(todo).toMatchSnapshot());
+      it('has change status UNCHANGED', () => expect(todo.status).toEqual(UNCHANGED));
+    });
+  });
+  describe('with a title and an undefined Evernote order', () => {
+    beforeEach(() => (todo = new Todo({ title, evernote: {} })));
+    describe('the resulting todo', () => {
+      it('has the correct title, done set to false and everything else set to null', () =>
+        expect(todo).toMatchSnapshot());
+      it('has change status UNCHANGED', () => expect(todo.status).toEqual(UNCHANGED));
+    });
+  });
+  describe('with a title and an invalid Evernote order', () => {
+    describe('an error', () => {
+      it('is thrown', () =>
+        expect(
+          () =>
+            new Todo({
+              title,
+              evernote: { order: invalidOrder }
+            })
+        ).toThrow('Evernote order needs to be a number'));
     });
   });
   describe('with a title and a SimpleMind ID', () => {
@@ -248,6 +278,15 @@ describe('When I create a todo', () => {
       });
     });
   });
+  describe('and try to change the Evernote order', () => {
+    describe('an error', () => {
+      it('is thrown', () => {
+        expect(() => (new Todo({ title }).evernoteOrder = order)).toThrow(
+          'Cannot set evernoteOrder, todos are immutable – use change instead'
+        );
+      });
+    });
+  });
   describe('and try to change the SimpleMind ID', () => {
     describe('an error', () => {
       it('is thrown', () => {
@@ -306,6 +345,24 @@ describe('When I create a todo', () => {
           expect(
             new Todo({ title, evernote: { id: evernoteId } }).change({
               evernote: { id: null }
+            })
+          ).toMatchSnapshot();
+        });
+      });
+    });
+    describe('with a different Evernote order', () => {
+      describe('the new todo', () => {
+        it('has the new Evernote order', () => {
+          expect(new Todo({ title }).change({ evernote: { order } })).toMatchSnapshot();
+        });
+      });
+    });
+    describe('with no Evernote order while previously there was one', () => {
+      describe('the new todo', () => {
+        it('has no Evernote order', () => {
+          expect(
+            new Todo({ title, evernote: { order } }).change({
+              evernote: { order: null }
             })
           ).toMatchSnapshot();
         });
@@ -406,6 +463,20 @@ describe('When I create a todo', () => {
             })
           ).toMatchSnapshot();
         });
+      });
+    });
+    describe('its string representation', () => {
+      it('shows the title, done status, deadline, URL, SimpleMind ID and Evernote ID and order', () => {
+        expect(
+          new Todo({
+            title,
+            done: doneTrue,
+            evernote: { id: evernoteId, order },
+            simpleMind: { id: simpleMindId },
+            deadline,
+            url
+          }).toString()
+        ).toMatchSnapshot();
       });
     });
   });

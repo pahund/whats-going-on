@@ -1,6 +1,6 @@
 module.exports = {
   UNCHANGED: 'UNCHANGED',
-  CHANGED: 'CHANGED:',
+  CHANGED: 'CHANGED',
   ADDED: 'ADDED',
   REMOVED: 'REMOVED'
 };

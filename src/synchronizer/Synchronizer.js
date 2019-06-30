@@ -1,7 +1,13 @@
 const { readFileSync, existsSync, writeFileSync } = require('fs');
 const { CACHE_PATH } = require('./constants');
 const { Todo } = require('../model');
-const { processTitleChange, processDoneChange, processDeadlineChange, processUrlChange } = require('./utils');
+const {
+  processTitleChange,
+  processDoneChange,
+  processDeadlineChange,
+  processUrlChange,
+  processOrderChange
+} = require('./utils');
 const { hasEntries } = require('../utils');
 
 const simpleMind = Symbol('SimpleMind todos');
@@ -46,11 +52,12 @@ module.exports = class {
         continue;
       }
       // (0) changed in Evernote or SimpleMind
-      const changes = { simpleMind: {}, evernote: {}, cache: {} };
-      processTitleChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
-      processDoneChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
-      processDeadlineChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
-      processUrlChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
+      const changes = { simpleMind: {}, evernote: {}, cache: { evernote: {} } };
+      processTitleChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
+      processDoneChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
+      processDeadlineChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
+      processUrlChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
+      processOrderChange({ evernoteTodo, cachedTodo, changes });
       if (hasEntries(changes.simpleMind)) {
         next.simpleMind.push(simpleMindTodo.change(changes.simpleMind));
       }
@@ -106,7 +113,10 @@ module.exports = class {
         return;
       }
       this.changeInCache(cachedTodo, {
-        evernote: { id: cachedTodo.evernoteId || todo.evernoteId },
+        evernote: {
+          id: cachedTodo.evernoteId || todo.evernoteId,
+          order: cachedTodo.evernoteOrder || todo.evernoteOrder
+        },
         simpleMind: { id: cachedTodo.simpleMindId || todo.simpleMindId }
       });
     });

@@ -1,4 +1,4 @@
-module.exports = (simpleMindTodo, evernoteTodo, cachedTodo, changes) => {
+module.exports = ({ simpleMindTodo, evernoteTodo, cachedTodo, changes }) => {
   // careful, we can't use simpleMindTodo.deadline !== evernoteTodo.deadline here,
   // because two date objects are different even if they contain the same date
   if (simpleMindTodo.hasDifferentDeadlineThan(evernoteTodo)) {

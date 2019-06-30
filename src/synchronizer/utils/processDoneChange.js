@@ -1,4 +1,4 @@
-module.exports = (simpleMindTodo, evernoteTodo, cachedTodo, changes) => {
+module.exports = ({ simpleMindTodo, evernoteTodo, cachedTodo, changes }) => {
   if (simpleMindTodo.done !== evernoteTodo.done) {
     if (cachedTodo.done === simpleMindTodo.done) {
       // done status changed in Evernote

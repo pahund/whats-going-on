@@ -6,11 +6,29 @@ Object {
   "done": false,
   "evernote": Object {
     "id": "1224bdef3745ffa0",
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo and create a changed version with a different Evernote order the new todo has the new Evernote order 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+    "order": 1561885947226,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -22,11 +40,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": "5f37ec4fa0097e",
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -38,11 +57,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": "https://github.com",
 }
@@ -54,11 +74,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -70,11 +91,12 @@ Object {
   "done": true,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -86,11 +108,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my changed title",
   "url": null,
 }
@@ -102,11 +125,29 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo and create a changed version with no Evernote order while previously there was one the new todo has no Evernote order 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+    "order": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -118,11 +159,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -134,11 +176,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -150,11 +193,12 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
   },
-  "status": "CHANGED:",
+  "status": "CHANGED",
   "title": "my title",
   "url": null,
 }
@@ -166,6 +210,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -182,6 +227,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": "5f37ec4fa0097e",
@@ -198,6 +244,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -214,6 +261,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -230,6 +278,7 @@ Object {
   "done": true,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -246,6 +295,7 @@ Object {
   "done": true,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -262,6 +312,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -278,6 +329,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -294,6 +346,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -310,6 +363,24 @@ Object {
   "done": false,
   "evernote": Object {
     "id": "1224bdef3745ffa0",
+    "order": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo with a title and an Evernote order the resulting todo has the correct title and Evernote order, done set to false and everything else set to null 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+    "order": 1561885947226,
   },
   "simpleMind": Object {
     "id": null,
@@ -326,6 +397,24 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
+  },
+  "simpleMind": Object {
+    "id": null,
+  },
+  "status": "UNCHANGED",
+  "title": "my title",
+  "url": null,
+}
+`;
+
+exports[`When I create a todo with a title and an undefined Evernote order the resulting todo has the correct title, done set to false and everything else set to null 1`] = `
+Object {
+  "deadline": null,
+  "done": false,
+  "evernote": Object {
+    "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -342,6 +431,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -358,6 +448,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,
@@ -368,12 +459,23 @@ Object {
 }
 `;
 
+exports[`When I create a todo with everything its string representation shows the title, done status, deadline, URL, SimpleMind ID and Evernote ID and order 1`] = `
+" Title:          my title
+ Done:           true
+ Evernote ID:    1224bdef3745ffa0
+ Evernote order: 1561885947226
+ SimpleMind ID:  5f37ec4fa0097e
+ Deadline:       1971-10-10T00:00:00.000Z
+ URL:            https://github.com"
+`;
+
 exports[`When I create a todo with everything when I convert it to JSON the resulting object is a JavaScript object with all the todo properties 1`] = `
 Object {
   "deadline": 1971-10-10T00:00:00.000Z,
   "done": true,
   "evernote": Object {
     "id": "1224bdef3745ffa0",
+    "order": null,
   },
   "simpleMind": Object {
     "id": "5f37ec4fa0097e",
@@ -390,6 +492,7 @@ Object {
   "done": false,
   "evernote": Object {
     "id": null,
+    "order": null,
   },
   "simpleMind": Object {
     "id": null,

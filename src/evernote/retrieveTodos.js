@@ -20,11 +20,11 @@ module.exports = client =>
     return rawResults.notes
       .filter(note => note.attributes.reminderOrder !== null)
       .map(
-        ({ guid, title, attributes: { reminderTime, reminderDoneTime, sourceURL } }) =>
+        ({ guid, title, attributes: { reminderTime, reminderDoneTime, reminderOrder, sourceURL } }) =>
           new Todo({
             title,
             done: reminderDoneTime !== null,
-            evernote: { id: guid },
+            evernote: { id: guid, order: reminderOrder },
             deadline: reminderTime ? new Date(reminderTime) : null,
             url: sourceURL
           })

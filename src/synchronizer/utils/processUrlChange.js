@@ -1,4 +1,4 @@
-module.exports = (simpleMindTodo, evernoteTodo, cachedTodo, changes) => {
+module.exports = ({ simpleMindTodo, evernoteTodo, cachedTodo, changes }) => {
   if (simpleMindTodo.url !== evernoteTodo.url) {
     if (cachedTodo.url === simpleMindTodo.url) {
       // URL changed in Evernote

@@ -2,15 +2,15 @@
 
 exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cache is empty and I call saveCache the cache written to the local file system is empty 1`] = `"[]"`;
 
-exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cached item has only a SimpleMind ID and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cached item has only a SimpleMind ID and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
-exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cached item has only an Evernote ID and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has Evernote and SimpleMind IDs and the cached item has only an Evernote ID and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
-exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has only a SimpleMind ID and the cached item has both and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has only a SimpleMind ID and the cached item has both and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
-exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has only an Evernote ID and the cached item has both and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and I call loadCache and updateCacheIds with a todo list with an item that has only an Evernote ID and the cached item has both and I call saveCache the cache written to the local file system contains the todo item with both IDs 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
-exports[`When I instantiate a synchronizer and a URL was added in Evernote the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://ebaytech.berlin/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a URL was added in Evernote the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://ebaytech.berlin/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a URL was added in Evernote the sync result is that the URL should be added in SimpleMind 1`] = `
 Object {
@@ -21,11 +21,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": "https://ebaytech.berlin/",
     },
@@ -33,7 +34,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a URL was added in SimpleMind the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://ebaytech.berlin/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a URL was added in SimpleMind the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://ebaytech.berlin/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a URL was added in SimpleMind the sync result is that the URL should be added in Evernote 1`] = `
 Object {
@@ -43,11 +44,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": "https://ebaytech.berlin/",
     },
@@ -56,7 +58,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a URL was added in both the cache contains the SimpleMind URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.motor-talk.de/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a URL was added in both the cache contains the SimpleMind URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.motor-talk.de/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a URL was added in both the sync result is that the URL should be changed in Evernote 1`] = `
 Object {
@@ -66,11 +68,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": "https://www.motor-talk.de/",
     },
@@ -79,7 +82,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a deadline was added in Evernote the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-01-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a deadline was added in Evernote the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-01-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a deadline was added in Evernote the sync result is that the deadline should be added in SimpleMind 1`] = `
 Object {
@@ -90,11 +93,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -102,7 +106,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a deadline was added in SimpleMind the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-01-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a deadline was added in SimpleMind the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-01-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a deadline was added in SimpleMind the sync result is that the deadline should be added in Evernote 1`] = `
 Object {
@@ -112,11 +116,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -125,7 +130,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a deadline was added in both the cache contains the SimpleMind deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-02-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a deadline was added in both the cache contains the SimpleMind deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-02-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a deadline was added in both the sync result is that the deadline should be changed in Evernote 1`] = `
 Object {
@@ -135,11 +140,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -148,7 +154,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a todo was added in Evernote and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system contains the todo 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":null},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a todo was added in Evernote and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system contains the todo 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":null},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a todo was added in Evernote and I call the loadCache and synchronize functions the result is that todo is added to SimpleMind 1`] = `
 Object {
@@ -159,6 +165,7 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
@@ -171,7 +178,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and a todo was added in SimpleMind and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system contains the todo 1`] = `"[{\\"evernote\\":{\\"id\\":null},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and a todo was added in SimpleMind and I call the loadCache and synchronize functions and I call the saveCache function the cache written to the local file system contains the todo 1`] = `"[{\\"evernote\\":{\\"id\\":null,\\"order\\":null},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and a todo was added in SimpleMind and I call the loadCache and synchronize functions the result is that todo is added to Evernote 1`] = `
 Object {
@@ -181,6 +188,7 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
@@ -205,6 +213,7 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
@@ -227,6 +236,7 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
@@ -240,7 +250,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and done was changed in Evernote the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and done was changed in Evernote the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and done was changed in Evernote the sync result is that done should be changed in SimpleMind 1`] = `
 Object {
@@ -251,11 +261,12 @@ Object {
       "done": true,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -263,7 +274,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and done was changed in SimpleMind the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and done was changed in SimpleMind the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and done was changed in SimpleMind the sync result is that done should be changed in Evernote 1`] = `
 Object {
@@ -273,11 +284,12 @@ Object {
       "done": true,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -286,7 +298,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the URL was changed in Evernote the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.kijijiautos.ca/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the URL was changed in Evernote the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.kijijiautos.ca/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the URL was changed in Evernote the sync result is that the URL should be changed in SimpleMind 1`] = `
 Object {
@@ -297,11 +309,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": "https://www.kijijiautos.ca/",
     },
@@ -309,7 +322,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the URL was changed in SimpleMind the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.motor-talk.de/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the URL was changed in SimpleMind the cache contains the new URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.motor-talk.de/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the URL was changed in SimpleMind the sync result is that the URL should be changed in Evernote 1`] = `
 Object {
@@ -319,11 +332,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": "https://www.motor-talk.de/",
     },
@@ -332,7 +346,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the URL was changed in both the cache contains the SimpleMind URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.motor-talk.de/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the URL was changed in both the cache contains the SimpleMind URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":\\"https://www.motor-talk.de/\\",\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the URL was changed in both the sync result is that the URL should be changed in Evernote 1`] = `
 Object {
@@ -342,11 +356,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": "https://www.motor-talk.de/",
     },
@@ -355,7 +370,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the URL was removed in Evernote the cache does not contain the URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the URL was removed in Evernote the cache does not contain the URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the URL was removed in Evernote the sync result is that the URL should be removed from SimpleMind 1`] = `
 Object {
@@ -366,11 +381,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -378,7 +394,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the URL was removed in SimpleMind the cache does not contain the URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the URL was removed in SimpleMind the cache does not contain the URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the URL was removed in SimpleMind the sync result is that the URL should be removed in Evernote 1`] = `
 Object {
@@ -388,11 +404,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -401,7 +418,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the URL was removed in both the cache does not contain a URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the URL was removed in both the cache does not contain a URL 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the URL was removed in both the sync result is that nothing should be changed 1`] = `
 Object {
@@ -410,7 +427,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the deadline was changed in Evernote the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-03-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the deadline was changed in Evernote the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-03-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the deadline was changed in Evernote the sync result is that the deadline should be changed in SimpleMind 1`] = `
 Object {
@@ -421,11 +438,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -433,7 +451,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the deadline was changed in SimpleMind the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-02-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the deadline was changed in SimpleMind the cache contains the new deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-02-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the deadline was changed in SimpleMind the sync result is that the deadline should be changed in Evernote 1`] = `
 Object {
@@ -443,11 +461,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -456,7 +475,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the deadline was changed in both the cache contains the SimpleMind deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-02-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the deadline was changed in both the cache contains the SimpleMind deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":\\"2019-02-01T02:00:00.000Z\\",\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the deadline was changed in both the sync result is that the deadline should be changed in Evernote 1`] = `
 Object {
@@ -466,11 +485,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -479,7 +499,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the deadline was removed in Evernote the cache does not contain the deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the deadline was removed in Evernote the cache does not contain the deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the deadline was removed in Evernote the sync result is that the deadline should be removed from SimpleMind 1`] = `
 Object {
@@ -490,11 +510,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -502,7 +523,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the deadline was removed in SimpleMind the cache does not contain the deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the deadline was removed in SimpleMind the cache does not contain the deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the deadline was removed in SimpleMind the sync result is that the deadline should be removed in Evernote 1`] = `
 Object {
@@ -512,11 +533,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Singen",
       "url": null,
     },
@@ -525,7 +547,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the deadline was removed in both the cache does not contain a deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the deadline was removed in both the cache does not contain a deadline 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the deadline was removed in both the sync result is that nothing should be changed 1`] = `
 Object {
@@ -534,7 +556,16 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the title was changed in Evernote the cache contains the new title 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Lachen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the order was changed in Evernote the cache contains the changed Evernote order 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561888236534},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Singen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+
+exports[`When I instantiate a synchronizer and the order was changed in Evernote the sync result is that nothing should be changed 1`] = `
+Object {
+  "evernote": Array [],
+  "simpleMind": Array [],
+}
+`;
+
+exports[`When I instantiate a synchronizer and the title was changed in Evernote the cache contains the new title 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Lachen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the title was changed in Evernote the sync result is that the title should be changed in SimpleMind 1`] = `
 Object {
@@ -545,11 +576,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Lachen",
       "url": null,
     },
@@ -557,7 +589,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the title was changed in SimpleMind the cache contains the new title 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Tanzen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the title was changed in SimpleMind the cache contains the new title 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Tanzen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the title was changed in SimpleMind the sync result is that the title should be changed in Evernote 1`] = `
 Object {
@@ -567,11 +599,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Tanzen",
       "url": null,
     },
@@ -580,7 +613,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and the title was changed in both the cache contains the SimpleMind title 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Tanzen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and the title was changed in both the cache contains the SimpleMind title 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Tanzen\\",\\"done\\":false,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and the title was changed in both the sync result is that the title should be changed in Evernote 1`] = `
 Object {
@@ -590,11 +623,12 @@ Object {
       "done": false,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Tanzen",
       "url": null,
     },
@@ -603,7 +637,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and title and done were changed in Evernote the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Lachen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and title and done were changed in Evernote the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Lachen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and title and done were changed in Evernote the sync result is that title and done should be changed in SimpleMind 1`] = `
 Object {
@@ -614,11 +648,12 @@ Object {
       "done": true,
       "evernote": Object {
         "id": null,
+        "order": null,
       },
       "simpleMind": Object {
         "id": "666",
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Lachen",
       "url": null,
     },
@@ -626,7 +661,7 @@ Object {
 }
 `;
 
-exports[`When I instantiate a synchronizer and title and done were changed in SimpleMind the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\"},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Tanzen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
+exports[`When I instantiate a synchronizer and title and done were changed in SimpleMind the cache contains the new done 1`] = `"[{\\"evernote\\":{\\"id\\":\\"777\\",\\"order\\":1561885947226},\\"simpleMind\\":{\\"id\\":\\"666\\"},\\"title\\":\\"Tanzen\\",\\"done\\":true,\\"deadline\\":null,\\"url\\":null,\\"status\\":\\"UNCHANGED\\"}]"`;
 
 exports[`When I instantiate a synchronizer and title and done were changed in SimpleMind the sync result is that title and done should be changed in Evernote 1`] = `
 Object {
@@ -636,11 +671,12 @@ Object {
       "done": true,
       "evernote": Object {
         "id": "777",
+        "order": 1561885947226,
       },
       "simpleMind": Object {
         "id": null,
       },
-      "status": "CHANGED:",
+      "status": "CHANGED",
       "title": "Tanzen",
       "url": null,
     },

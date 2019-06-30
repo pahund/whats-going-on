@@ -11,6 +11,8 @@ const done = false;
 const changedDone = true;
 const changedTitle1 = 'Tanzen';
 const changedTitle2 = 'Lachen';
+const order = 1561885947226;
+const changedOrder = 1561888236534;
 const deadline = '2019-01-01T02:00:00.000Z';
 const changeDeadline1 = '2019-02-01T02:00:00.000Z';
 const changeDeadline2 = '2019-03-01T02:00:00.000Z';
@@ -31,21 +33,25 @@ const simpleMindWithChangedDeadline = [
 const simpleMindWithUrl = [new Todo({ title, simpleMind: { id: simpleMindId }, url })];
 const simpleMindWithChangedUrl = [new Todo({ title, simpleMind: { id: simpleMindId }, url: changedUrl1 })];
 const evernoteWithNoItems = [];
-const evernoteWithOneItem = [new Todo({ title, evernote: { id: evernoteId } })];
-const evernoteWithChangedTitle = [new Todo({ title: changedTitle2, evernote: { id: evernoteId } })];
-const evernoteWithChangedDone = [new Todo({ title, done: changedDone, evernote: { id: evernoteId } })];
+const evernoteWithOneItem = [new Todo({ title, evernote: { id: evernoteId, order } })];
+const evernoteWithChangedTitle = [new Todo({ title: changedTitle2, evernote: { id: evernoteId, order } })];
+const evernoteWithChangedDone = [new Todo({ title, done: changedDone, evernote: { id: evernoteId, order } })];
 const evernoteWithChangedTitleAndDone = [
-  new Todo({ title: changedTitle2, done: changedDone, evernote: { id: evernoteId } })
+  new Todo({ title: changedTitle2, done: changedDone, evernote: { id: evernoteId, order } })
 ];
-const evernoteWithDeadline = [new Todo({ title, evernote: { id: evernoteId }, deadline })];
-const evernoteWithChangedDeadline = [new Todo({ title, evernote: { id: evernoteId }, deadline: changeDeadline2 })];
-const evernoteWithUrl = [new Todo({ title, evernote: { id: evernoteId }, url })];
-const evernoteWithChangedUrl = [new Todo({ title, evernote: { id: evernoteId }, url: changedUrl2 })];
+const evernoteWithDeadline = [new Todo({ title, evernote: { id: evernoteId, order }, deadline })];
+const evernoteWithChangedDeadline = [
+  new Todo({ title, evernote: { id: evernoteId, order }, deadline: changeDeadline2 })
+];
+const evernoteWithUrl = [new Todo({ title, evernote: { id: evernoteId, order }, url })];
+const evernoteWithChangedUrl = [new Todo({ title, evernote: { id: evernoteId, order }, url: changedUrl2 })];
+const evernoteWithChangedOrder = [new Todo({ title, evernote: { id: evernoteId, order: changedOrder } })];
 const cacheWithNoItems = '[]';
 const cacheWithOneItem = `[
   {
     "evernote": {
-      "id": "${evernoteId}"
+      "id": "${evernoteId}",
+      "order": ${order}
     },
     "simpleMind": {
       "id": "${simpleMindId}"
@@ -60,7 +66,8 @@ const cacheWithOneItem = `[
 const cacheWithDeadline = `[
   {
     "evernote": {
-      "id": "${evernoteId}"
+      "id": "${evernoteId}",
+      "order": ${order}
     },
     "simpleMind": {
       "id": "${simpleMindId}"
@@ -75,7 +82,8 @@ const cacheWithDeadline = `[
 const cacheWithUrl = `[
   {
     "evernote": {
-      "id": "${evernoteId}"
+      "id": "${evernoteId}",
+      "order": ${order}
     },
     "simpleMind": {
       "id": "${simpleMindId}"
@@ -87,11 +95,14 @@ const cacheWithUrl = `[
     "status": "${UNCHANGED}"
   }
 ]`;
-const todoListWithOneItem = [new Todo({ title, evernote: { id: evernoteId }, simpleMind: { id: simpleMindId } })];
+const todoListWithOneItem = [
+  new Todo({ title, evernote: { id: evernoteId, order }, simpleMind: { id: simpleMindId } })
+];
 const cacheWithEvernoteItem = `[
   {
     "evernote": {
-      "id": "${evernoteId}"
+      "id": "${evernoteId}",
+      "order": ${order}
     },
     "simpleMind": {
       "id": null
@@ -106,7 +117,8 @@ const cacheWithEvernoteItem = `[
 const cacheWithSimpleMindItem = `[
   {
     "evernote": {
-      "id": null
+      "id": null,
+      "order": null
     },
     "simpleMind": {
       "id": "${simpleMindId}"
@@ -236,10 +248,10 @@ describe('When I instantiate a synchronizer', () => {
     ${'a URL was added in both'}                   | ${simpleMindWithChangedUrl}          | ${evernoteWithChangedUrl}          | ${cacheWithOneItem}  | ${'the URL should be changed in Evernote'}          | ${'contains the SimpleMind URL'}
     ${'the URL was removed in both'}               | ${simpleMindWithOneItem}             | ${evernoteWithOneItem}             | ${cacheWithUrl}      | ${'nothing should be changed'}                      | ${'does not contain a URL'}
     ${'the URL was changed in both'}               | ${simpleMindWithChangedUrl}          | ${evernoteWithChangedUrl}          | ${cacheWithUrl}      | ${'the URL should be changed in Evernote'}          | ${'contains the SimpleMind URL'}
-  `('and $description', ({ description, simpleMind, evernote, cache, expectedSyncResult, expectedCacheResult }) => {
+    ${'the order was changed in Evernote'}         | ${simpleMindWithOneItem}             | ${evernoteWithChangedOrder}        | ${cacheWithOneItem}  | ${'nothing should be changed'}                      | ${'contains the changed Evernote order'}
+  `('and $description', ({ simpleMind, evernote, cache, expectedSyncResult, expectedCacheResult }) => {
     let result;
     beforeEach(() => {
-      console.log(description);
       fs.existsSync.mockReturnValue(true);
       fs.readFileSync.mockReturnValue(cache);
       synchronizer.loadCache();
