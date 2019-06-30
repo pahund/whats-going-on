@@ -2,7 +2,7 @@
 
 const { Synchronizer } = require('../src/synchronizer');
 const { Builder } = require('xml2js');
-const { ADDED, REMOVED } = require('../src/model');
+const { ADDED, REMOVED, CHANGED } = require('../src/model');
 const sm = require('../src/simple-mind');
 const ev = require('../src/evernote');
 
@@ -46,6 +46,11 @@ const ev = require('../src/evernote');
   await ev.deleteTodos(evernoteClient, removedEvernoteTodos);
   report.evernote.removed = removedEvernoteTodos.length;
 
+  // Change todos in Evernote
+  const changedEvernoteTodos = result.evernote.filter(todo => todo.status === CHANGED);
+  await ev.changeTodos(evernoteClient, changedEvernoteTodos);
+  report.evernote.changed = changedEvernoteTodos.length;
+
   // Add todos to SimpleMind
   let addedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === ADDED);
   [simpleMindRawData, addedSimpleMindTodos] = sm.createTodos(simpleMindRawData, addedSimpleMindTodos);
@@ -56,6 +61,11 @@ const ev = require('../src/evernote');
   const removedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === REMOVED);
   simpleMindRawData = sm.deleteTodos(simpleMindRawData, removedSimpleMindTodos);
   report.simpleMind.removed = removedSimpleMindTodos.length;
+
+  // Change todos in SimpleMind
+  const changedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === CHANGED);
+  simpleMindRawData = sm.changeTodos(simpleMindRawData, changedSimpleMindTodos);
+  report.simpleMind.changed = changedSimpleMindTodos.length;
 
   // Clean up
   sync.saveCache();

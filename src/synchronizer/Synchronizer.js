@@ -1,6 +1,8 @@
 const { readFileSync, existsSync, writeFileSync } = require('fs');
 const { CACHE_PATH } = require('./constants');
 const { Todo } = require('../model');
+const { processTitleChange, processDoneChange, processDeadlineChange, processUrlChange } = require('./utils');
+const { hasEntries } = require('../utils');
 
 const simpleMind = Symbol('SimpleMind todos');
 const evernote = Symbol('Evernote todos');
@@ -36,15 +38,28 @@ module.exports = class {
         next.evernote.push(simpleMindTodo.add());
         continue;
       }
-      const evernoteTodo = evernote.find(curr => curr.evernoteId === cachedTodo.evernoteId) || null;
+      const evernoteTodo = evernote.find(curr => curr.evernoteId === cachedTodo.evernoteId);
       if (!evernoteTodo) {
         // (2) removed in Evernote
         this.removeFromCache(cachedTodo);
         next.simpleMind.push(simpleMindTodo.remove());
-        // noinspection UnnecessaryContinueJS
         continue;
       }
       // (0) changed in Evernote or SimpleMind
+      const changes = { simpleMind: {}, evernote: {}, cache: {} };
+      processTitleChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
+      processDoneChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
+      processDeadlineChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
+      processUrlChange(simpleMindTodo, evernoteTodo, cachedTodo, changes);
+      if (hasEntries(changes.simpleMind)) {
+        next.simpleMind.push(simpleMindTodo.change(changes.simpleMind));
+      }
+      if (hasEntries(changes.evernote)) {
+        next.evernote.push(evernoteTodo.change(changes.evernote));
+      }
+      if (hasEntries(changes.cache)) {
+        this.changeInCache(cachedTodo, changes.cache);
+      }
     }
     for (const evernoteTodo of evernote) {
       const cachedTodo = this.findInCache(evernoteTodo);
@@ -54,15 +69,12 @@ module.exports = class {
         next.simpleMind.push(evernoteTodo.add());
         continue;
       }
-      const simpleMindTodo = simpleMind.find(curr => curr.simpleMindId === cachedTodo.simpleMindId) || null;
+      const simpleMindTodo = simpleMind.find(curr => curr.simpleMindId === cachedTodo.simpleMindId);
       if (!simpleMindTodo) {
         // (1) removed in SimpleMind
         this.removeFromCache(cachedTodo);
         next.evernote.push(evernoteTodo.remove());
-        // noinspection UnnecessaryContinueJS
-        continue;
       }
-      // (0) changed in Evernote or SimpleMind
     }
     return next;
   }
@@ -76,33 +88,33 @@ module.exports = class {
   }
 
   findInCache(todo) {
-    return (
-      this[cache].find(curr => {
-        if (curr.simpleMindId !== null && todo.simpleMindId !== null) {
-          return curr.simpleMindId === todo.simpleMindId;
-        }
-        if (curr.evernoteId !== null && todo.evernoteId !== null) {
-          return curr.evernoteId === todo.evernoteId;
-        }
-        return false;
-      }) || null
-    );
+    return this[cache].find(curr => {
+      if (curr.simpleMindId !== null && todo.simpleMindId !== null) {
+        return curr.simpleMindId === todo.simpleMindId;
+      }
+      if (curr.evernoteId !== null && todo.evernoteId !== null) {
+        return curr.evernoteId === todo.evernoteId;
+      }
+      return false;
+    });
   }
 
   updateCacheIds(todos) {
     todos.forEach(todo => {
       const cachedTodo = this.findInCache(todo);
-      if (cachedTodo === null) {
+      if (!cachedTodo) {
         return;
       }
-      this.addToCache(
-        cachedTodo.change({
-          evernote: { id: cachedTodo.evernoteId || todo.evernoteId },
-          simpleMind: { id: cachedTodo.simpleMindId || todo.simpleMindId }
-        })
-      );
-      this.removeFromCache(cachedTodo);
+      this.changeInCache(cachedTodo, {
+        evernote: { id: cachedTodo.evernoteId || todo.evernoteId },
+        simpleMind: { id: cachedTodo.simpleMindId || todo.simpleMindId }
+      });
     });
+  }
+
+  changeInCache(todo, changes) {
+    this.removeFromCache(todo);
+    this.addToCache(todo.change(changes));
   }
 
   saveCache() {

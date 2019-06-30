@@ -4,7 +4,7 @@ const retrieveTodos = require('./retrieveTodos');
 const retrieveMindMapXml = require('./retrieveMindMapXml');
 const writeMindMapXml = require('./writeMindMapXml');
 const parseMindMapData = require('./parseMindMapData');
-const updateMindMapData = require('./updateMindMapData');
+const changeTodos = require('./changeTodos');
 const cleanUp = require('./cleanUp');
 const listDriveFiles = require('./listDriveFiles');
 const uploadMindMap = require('./uploadMindMap');
@@ -18,7 +18,7 @@ module.exports = {
   retrieveMindMapXml,
   writeMindMapXml,
   parseMindMapData,
-  updateMindMapData,
+  changeTodos,
   cleanUp,
   listDriveFiles,
   uploadMindMap,

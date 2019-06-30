@@ -227,6 +227,16 @@ class Todo {
     });
   }
 
+  hasSameDeadlineAs(other) {
+    const a = this.deadline ? this.deadline.getTime() : null;
+    const b = other.deadline ? other.deadline.getTime() : null;
+    return a === b;
+  }
+
+  hasDifferentDeadlineThan(other) {
+    return !this.hasSameDeadlineAs(other);
+  }
+
   change(
     { title, done, evernote = {}, simpleMind = {}, deadline, url } = {
       evernote: {},

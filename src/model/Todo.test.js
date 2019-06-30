@@ -8,6 +8,7 @@ const simpleMindId = '5f37ec4fa0097e';
 const invalidId = 666;
 const deadlineStr = '1971-10-10';
 const deadline = new Date(deadlineStr);
+const otherDeadline = new Date('1974-11-09');
 const invalidDeadlineNum = 3434;
 const invalidDeadlineStr = 'blabla';
 const url = 'https://github.com';
@@ -407,5 +408,33 @@ describe('When I create a todo', () => {
         });
       });
     });
+  });
+});
+
+describe.each`
+  description                      | todo1                            | todo2                                           | expected
+  ${'both without deadline'}       | ${new Todo({ title })}           | ${new Todo({ title })}                          | ${true}
+  ${'one with a deadline'}         | ${new Todo({ title, deadline })} | ${new Todo({ title })}                          | ${false}
+  ${'both with the same deadline'} | ${new Todo({ title, deadline })} | ${new Todo({ title, deadline })}                | ${true}
+  ${'with different deadlines'}    | ${new Todo({ title, deadline })} | ${new Todo({ title, deadline: otherDeadline })} | ${false}
+`('When I create two todos, $description', ({ todo1, todo2, expected }) => {
+  describe('and check if they have the same deadline, the result', () => {
+    let result;
+    beforeEach(() => (result = todo1.hasSameDeadlineAs(todo2)));
+    it(`is ${expected}`, () => expect(result).toBe(expected));
+  });
+});
+
+describe.each`
+  description                      | todo1                            | todo2                                           | expected
+  ${'both without deadline'}       | ${new Todo({ title })}           | ${new Todo({ title })}                          | ${false}
+  ${'one with a deadline'}         | ${new Todo({ title, deadline })} | ${new Todo({ title })}                          | ${true}
+  ${'both with the same deadline'} | ${new Todo({ title, deadline })} | ${new Todo({ title, deadline })}                | ${false}
+  ${'with different deadlines'}    | ${new Todo({ title, deadline })} | ${new Todo({ title, deadline: otherDeadline })} | ${true}
+`('When I create two todos, $description', ({ todo1, todo2, expected }) => {
+  describe('and check if they have different deadlines, the result', () => {
+    let result;
+    beforeEach(() => (result = todo1.hasDifferentDeadlineThan(todo2)));
+    it(`is ${expected}`, () => expect(result).toBe(expected));
   });
 });

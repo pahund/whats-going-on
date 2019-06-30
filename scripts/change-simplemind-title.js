@@ -6,7 +6,7 @@ const {
   authorize,
   retrieveMindMapXml,
   parseMindMapData,
-  updateMindMapData,
+  changeTodos,
   retrieveTodos,
   writeMindMapXml,
   uploadMindMap,
@@ -20,7 +20,7 @@ const {
   const data = await parseMindMapData(xml);
   const todos = retrieveTodos(data);
   todos[0] = todos[0].change({ title: 'I WAS CHANGED!!1!!' });
-  const data2 = updateMindMapData(data, todos);
+  const data2 = changeTodos(data, todos);
   const builder = new Builder();
   const xml2 = builder.buildObject(data2);
   await writeMindMapXml(xml2);

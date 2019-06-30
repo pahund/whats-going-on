@@ -14,7 +14,6 @@
     "list-simplemind-todos": "scripty",
     "list-drive-files": "scripty",
     "write-simplemind-todos-to-evernote": "scripty",
-    "add-evernote-id-to-simplemind": "scripty",
     "synchronize": "scripty"
   },
   "scripty": {

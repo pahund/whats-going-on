@@ -17,7 +17,6 @@ module.exports = {
   rules: {
     "prettier/prettier": "error",
     "accessor-pairs": "error",
-    "array-bracket-newline": "error",
     "array-bracket-spacing": ["error", "never"],
     "array-callback-return": "error",
     "arrow-body-style": "off",
