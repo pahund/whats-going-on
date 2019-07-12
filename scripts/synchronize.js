@@ -1,94 +1,81 @@
 #!/usr/bin/env node
 
+const { getPath, WhatsGoingOnError, isDevMode } = require('../src/utils');
+require('dotenv').config({ path: getPath('.env') });
+
 const { Synchronizer } = require('../src/synchronizer');
-const { Builder } = require('xml2js');
 const { ADDED, REMOVED, CHANGED } = require('../src/model');
-const sm = require('../src/simple-mind');
-const ev = require('../src/evernote');
+const { SimpleMind } = require('../src/simple-mind');
+const { Evernote } = require('../src/evernote');
+const { fetchGmtOffset } = require('../src/timezone');
 
 (async () => {
-  const report = {
-    simpleMind: {
-      added: 0,
-      removed: 0,
-      changed: 0
-    },
-    evernote: {
-      added: 0,
-      removed: 0,
-      changed: 0
-    }
-  };
-  const sync = new Synchronizer();
-  const builder = new Builder();
+  try {
+    const sync = new Synchronizer();
+    const ev = new Evernote();
+    const sm = new SimpleMind();
 
-  // Initialization
-  sync.loadCache();
-  const simpleMindAuth = await sm.authorize();
-  await sm.downloadMindMap(simpleMindAuth);
-  let xml = await sm.retrieveMindMapXml();
-  let simpleMindRawData = await sm.parseMindMapData(xml);
-  const simpleMind = await sm.retrieveTodos(simpleMindRawData);
-  const evernoteClient = await ev.authorize();
-  const evernote = await ev.retrieveTodos(evernoteClient);
+    // Initialization
+    const gmtOffset = await fetchGmtOffset();
+    sync.setup();
+    await sm.setup(gmtOffset);
+    await ev.setup(gmtOffset);
+    const simpleMind = sm.retrieveTodos();
+    const evernote = await ev.retrieveTodos();
 
-  // Synchronization
-  const result = sync.synchronize({ simpleMind, evernote });
+    // Synchronization
+    const result = sync.synchronize({ simpleMind, evernote });
 
-  // Add todos to Evernote
-  let addedEvernoteTodos = result.evernote.filter(todo => todo.status === ADDED);
-  addedEvernoteTodos = await ev.createTodos(evernoteClient, addedEvernoteTodos);
-  sync.updateCacheIds(addedEvernoteTodos);
-  report.evernote.added = addedEvernoteTodos.length;
+    // Add todos to Evernote
+    let addedEvernoteTodos = result.evernote.filter(todo => todo.status === ADDED);
+    addedEvernoteTodos = await ev.createTodos(addedEvernoteTodos);
+    sync.updateCacheIds(addedEvernoteTodos);
 
-  // Remove todos from Evernote
-  const removedEvernoteTodos = result.evernote.filter(todo => todo.status === REMOVED);
-  await ev.deleteTodos(evernoteClient, removedEvernoteTodos);
-  report.evernote.removed = removedEvernoteTodos.length;
+    // Remove todos from Evernote
+    const removedEvernoteTodos = result.evernote.filter(todo => todo.status === REMOVED);
+    await ev.deleteTodos(removedEvernoteTodos);
 
-  // Change todos in Evernote
-  const changedEvernoteTodos = result.evernote.filter(todo => todo.status === CHANGED);
-  await ev.changeTodos(evernoteClient, changedEvernoteTodos);
-  report.evernote.changed = changedEvernoteTodos.length;
+    // Change todos in Evernote
+    const changedEvernoteTodos = result.evernote.filter(todo => todo.status === CHANGED);
+    await ev.changeTodos(changedEvernoteTodos);
 
-  // Add todos to SimpleMind
-  let addedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === ADDED);
-  [simpleMindRawData, addedSimpleMindTodos] = sm.createTodos(simpleMindRawData, addedSimpleMindTodos);
-  sync.updateCacheIds(addedSimpleMindTodos);
-  report.simpleMind.added = addedSimpleMindTodos.length;
+    // Add todos to SimpleMind
+    let addedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === ADDED);
+    addedSimpleMindTodos = sm.createTodos(addedSimpleMindTodos);
+    sync.updateCacheIds(addedSimpleMindTodos);
 
-  // Remove todos from SimpleMind
-  const removedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === REMOVED);
-  simpleMindRawData = sm.deleteTodos(simpleMindRawData, removedSimpleMindTodos);
-  report.simpleMind.removed = removedSimpleMindTodos.length;
+    // Remove todos from SimpleMind
+    const removedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === REMOVED);
+    sm.deleteTodos(removedSimpleMindTodos);
 
-  // Change todos in SimpleMind
-  const changedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === CHANGED);
-  simpleMindRawData = sm.changeTodos(simpleMindRawData, changedSimpleMindTodos);
-  report.simpleMind.changed = changedSimpleMindTodos.length;
+    // Change todos in SimpleMind
+    const changedSimpleMindTodos = result.simpleMind.filter(todo => todo.status === CHANGED);
+    sm.changeTodos(changedSimpleMindTodos);
 
-  // Clean up
-  sync.saveCache();
-  if (report.simpleMind.added + report.simpleMind.changed + report.simpleMind.removed > 0) {
-    // only update the smmx file on Google Drive if necessary
-    xml = builder.buildObject(simpleMindRawData);
-    await sm.writeMindMapXml(xml);
-    await sm.uploadMindMap(simpleMindAuth);
-  }
-  await sm.cleanUp();
+    // Clean up
+    sync.teardown();
+    await sm.teardown();
 
-  // Report
-  console.log(
-    `
+    // Report
+    console.log(
+      `
 ┌─────────┬────────────┬────────────┐
 │         │  Evernote  │ SimpleMind │
 ├─────────┼────────────┼────────────┤
-│ Added   │ ${`${report.evernote.added}`.padStart(10)} │ ${`${report.simpleMind.added}`.padStart(10)} │
+│ Added   │ ${`${ev.report.added}`.padStart(10)} │ ${`${sm.report.added}`.padStart(10)} │
 ├─────────┼────────────┼────────────┤
-│ Changed │ ${`${report.evernote.changed}`.padStart(10)} │ ${`${report.simpleMind.changed}`.padStart(10)} │
+│ Changed │ ${`${ev.report.changed}`.padStart(10)} │ ${`${sm.report.changed}`.padStart(10)} │
 ├─────────┼────────────┼────────────┤
-│ Removed │ ${`${report.evernote.removed}`.padStart(10)} │ ${`${report.simpleMind.removed}`.padStart(10)} │
+│ Removed │ ${`${ev.report.removed}`.padStart(10)} │ ${`${sm.report.removed}`.padStart(10)} │
 └─────────┴────────────┴────────────┘
 `.trim()
-  );
+    );
+  } catch (err) {
+    if (isDevMode()) {
+      console.log(err.stack);
+    } else {
+      console.error(err instanceof WhatsGoingOnError ? err.message : 'Oops – an unknown program error occurred');
+    }
+    process.exit(1);
+  }
 })();

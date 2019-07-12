@@ -1,12 +1,14 @@
 {
   "name": "whats-going-on",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Syncs todo items between SimpleMind and Evernote",
   "main": "index.js",
   "scripts": {
     "start": "node .",
     "test": "jest src",
     "lint": "eslint . --fix",
+    "show": "scripty",
+    "gmt-offset": "scripty",
     "synchronize": "scripty"
   },
   "scripty": {
@@ -15,9 +17,12 @@
   "author": "Patrick Hund <pahund@team.mobile.de> (https://ebaytech.berlin/)",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^8.0.0",
     "evernote": "^2.0.5",
+    "gaxios": "^2.0.1",
     "googleapis": "^40.0.0",
     "jszip": "^3.2.1",
+    "node-fetch": "^2.6.0",
     "xml2js": "^0.4.19"
   },
   "devDependencies": {

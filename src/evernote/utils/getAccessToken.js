@@ -1,14 +1,30 @@
 const readline = require('readline');
 const fs = require('fs');
 const { Client } = require('evernote');
-const { rejectWithCustomMessage } = require('../../utils');
+const { rejectWithCustomMessage, WhatsGoingOnError } = require('../../utils');
 const { REDIRECT_URL, TOKEN_PATH } = require('../constants');
 
 module.exports = client => {
   return new Promise((resolve, reject) => {
     client.getRequestToken(REDIRECT_URL, (err, oauthToken, oauthTokenSecret) => {
       if (err) {
-        return rejectWithCustomMessage('Failed to obtain OAuth request token for Evernote', reject, err);
+        switch (err.statusCode) {
+          case 401:
+            reject(
+              new WhatsGoingOnError('Error – You are not authorized to obtain an OAuth request token for Evernote')
+            );
+            break;
+          case undefined:
+            reject(new WhatsGoingOnError(`Error – Failed to obtain OAuth request token for Evernote – unknown error`));
+            break;
+          default:
+            reject(
+              new WhatsGoingOnError(
+                `Error – Failed to obtain OAuth request token for Evernote – status code ${err.statusCode}`
+              )
+            );
+        }
+        return;
       }
 
       const authUrl = client.getAuthorizeUrl(oauthToken);

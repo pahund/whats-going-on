@@ -201,7 +201,7 @@ describe('When I create a todo', () => {
   describe('with a title and an invalid URL', () => {
     describe('an error', () => {
       it('is thrown', () => {
-        expect(() => new Todo({ title, url: invalidUrl })).toThrow('URL is not valid format');
+        expect(() => new Todo({ title, url: invalidUrl })).toThrow('URL blabla is not valid format');
       });
     });
   });
@@ -443,7 +443,7 @@ describe('When I create a todo', () => {
     describe('with an invalid URL', () => {
       describe('an error', () => {
         it('is thrown', () => {
-          expect(() => new Todo({ title }).change({ url: invalidUrl })).toThrow('URL is not valid format');
+          expect(() => new Todo({ title }).change({ url: invalidUrl })).toThrow('URL blabla is not valid format');
         });
       });
     });

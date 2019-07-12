@@ -1,20 +1,16 @@
-const { SMMX_PATH, FILE_ID } = require('./constants');
-const { withDrive } = require('./utils');
+const { SMMX_PATH } = require('../constants');
+const { withDrive, withApiErrorHandling } = require('../utils');
 const { createWriteStream } = require('fs');
-const { rejectWithCustomMessage } = require('../utils');
+const { rejectWithCustomMessage } = require('../../utils');
 
 module.exports = auth =>
   withDrive(auth)(async drive => {
+    const fileId = process.env.GOOGLE_DRIVE_FILE_ID;
     console.log(`Writing to ${SMMX_PATH}`);
     const dest = createWriteStream(SMMX_PATH);
     let progress = 0;
-    let res;
-    try {
-      res = await drive.files.get({ fileId: FILE_ID, alt: 'media' }, { responseType: 'stream' });
-    } catch (err) {
-      throw new Error(`Error downloading file with ID ${FILE_ID} from Google Drive`, err);
-    }
-    return new Promise((resolve, reject) => {
+    const res = await withApiErrorHandling(() => drive.files.get({ fileId, alt: 'media' }, { responseType: 'stream' }));
+    return new Promise((resolve, reject) =>
       res.data
         .on('end', () => {
           console.log('\nDone downloading file.');
@@ -22,7 +18,7 @@ module.exports = auth =>
         })
         .on('error', err => {
           console.log('\n');
-          return rejectWithCustomMessage(`Error downloading file with ID ${FILE_ID} from Google Drive`, reject, err);
+          return rejectWithCustomMessage(`Error downloading file with ID ${fileId} from Google Drive`, reject, err);
         })
         .on('data', d => {
           progress += d.length;
@@ -32,6 +28,6 @@ module.exports = auth =>
             process.stdout.write(`Downloaded ${progress} bytes…`);
           }
         })
-        .pipe(dest);
-    });
+        .pipe(dest)
+    );
   });

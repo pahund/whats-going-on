@@ -1,7 +1,7 @@
 const fs = require('fs');
 const JSZip = require('jszip');
-const { SMMX_PATH } = require('./constants');
-const { rejectWithCustomMessage } = require('../utils');
+const { SMMX_PATH } = require('../constants');
+const { rejectWithCustomMessage } = require('../../utils');
 
 module.exports = () =>
   new Promise((resolve, reject) =>

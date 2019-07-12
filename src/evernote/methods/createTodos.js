@@ -1,6 +1,6 @@
 const createTodo = require('./createTodo');
-const { REQUEST_BATCH_SIZE, REQUEST_BATCH_INTERVAL } = require('./constants');
-const { executedBatched } = require('../utils');
+const { REQUEST_BATCH_SIZE, REQUEST_BATCH_INTERVAL } = require('../constants');
+const { executedBatched } = require('../../utils');
 
 module.exports = async (client, todos) => {
   // order should never be higher than latest timestamp and two notes in Evernote should not have the

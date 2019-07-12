@@ -1,12 +1,12 @@
-const { NOTEBOOK_ID } = require('./constants');
-const { withNoteStore } = require('./utils');
+const { withNoteStore } = require('../utils');
 
 module.exports = (client, todo, order = Date.now()) =>
   withNoteStore(client)(async noteStore => {
+    const notebookGuid = process.env.EVERNOTE_NOTEBOOK_ID;
     const { guid } = await noteStore.createNote({
       title: todo.title,
       content: '<!DOCTYPE en-note SYSTEM "http://xml.evernote.com/pub/enml2.dtd"><en-note />',
-      notebookGuid: NOTEBOOK_ID,
+      notebookGuid,
       attributes: {
         reminderOrder: order,
         reminderTime: todo.deadline ? todo.deadline.getTime() : null,

@@ -21,7 +21,7 @@ module.exports = class {
     this[cache] = [];
   }
 
-  loadCache() {
+  setup() {
     if (!existsSync(CACHE_PATH)) {
       console.warn('No local todo cache found');
       return;
@@ -127,7 +127,7 @@ module.exports = class {
     this.addToCache(todo.change(changes));
   }
 
-  saveCache() {
+  teardown() {
     writeFileSync(CACHE_PATH, JSON.stringify(this[cache]));
     console.log(`Saved ${this[cache].length} locally cached todo items`);
   }

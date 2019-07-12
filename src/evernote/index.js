@@ -1,19 +1,5 @@
-const authorize = require('./authorize');
-const changeTodo = require('./changeTodo');
-const changeTodos = require('./changeTodos');
-const createTodo = require('./createTodo');
-const createTodos = require('./createTodos');
-const deleteTodo = require('./deleteTodo');
-const deleteTodos = require('./deleteTodos');
-const retrieveTodos = require('./retrieveTodos');
+const Evernote = require('./Evernote');
 
 module.exports = {
-  authorize,
-  changeTodo,
-  changeTodos,
-  createTodo,
-  createTodos,
-  deleteTodo,
-  deleteTodos,
-  retrieveTodos
+  Evernote
 };

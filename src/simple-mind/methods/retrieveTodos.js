@@ -1,4 +1,4 @@
-const { getTopics, filterTopicsForTodos, mapTopicsToTodoItems } = require('./utils');
+const { getTopics, filterTopicsForTodos, mapTopicsToTodoItems } = require('../utils');
 
 module.exports = data =>
   getTopics(data)

@@ -6,7 +6,7 @@ const validUrlPattern = new RegExp(
   '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
   '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
   '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-    '(\\#[-a-z\\d_]*)?$',
+    '(\\#[-a-z\\d_=]*)?$',
   'i'
 ); // fragment locator
 
@@ -18,7 +18,7 @@ class Todo {
   constructor({
     title,
     done,
-    evernote = { id: null, order: null },
+    evernote = { id: null, order: null, deadlineTime: null },
     simpleMind = { id: null },
     deadline,
     url,
@@ -53,6 +53,16 @@ class Todo {
     } else {
       this[data].evernote.order = evernote.order;
     }
+    if (!evernote.deadlineTime) {
+      this[data].evernote.deadlineTime = null;
+    } else if (
+      typeof evernote.deadlineTime !== 'string' &&
+      !evernote.deadlineTime.match(/^[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$/)
+    ) {
+      throw new Error('Evernote deadline time needs to be a string in format hh:mm:ss.mmmZ');
+    } else {
+      this[data].evernote.deadlineTime = evernote.deadlineTime;
+    }
     if (!simpleMind.id) {
       this[data].simpleMind.id = null;
     } else if (typeof simpleMind.id !== 'string') {
@@ -84,7 +94,7 @@ class Todo {
     if (!url) {
       this[data].url = null;
     } else if (!validUrlPattern.test(url)) {
-      throw new Error('URL is not valid format');
+      throw new Error(`URL ${url} is not valid format`);
     } else {
       this[data].url = url;
     }
@@ -147,11 +157,11 @@ class Todo {
     return this[data].evernote.order;
   }
   // noinspection JSMethodCanBeStatic,JSUnusedLocalSymbols
-  set evernoteOrderChanged(id) {
-    throw new Error('Cannot set evernoteOrderChanged, todos are immutable – use change instead');
+  set evernoteDeadlineTime(deadlineTome) {
+    throw new Error('Cannot set evernoteDeadlineTime, todos are immutable – use change instead');
   }
-  get evernoteOrderChanged() {
-    return this[changedData].evernote.order;
+  get evernoteDeadlineTime() {
+    return this[data].evernote.deadlineTime;
   }
   // noinspection JSMethodCanBeStatic,JSUnusedLocalSymbols
   set simpleMindId(id) {
@@ -197,22 +207,25 @@ class Todo {
   }
   toString() {
     const tokens = [];
-    tokens.push(`${this.titleChanged ? '*' : ' '}Title:          ${this.title}`);
-    tokens.push(`${this.doneChanged ? '*' : ' '}Done:           ${this.done}`);
+    tokens.push(`${this.titleChanged ? '*' : ' '}Title:                  ${this.title}`);
+    tokens.push(`${this.doneChanged ? '*' : ' '}Done:                   ${this.done}`);
     if (this.evernoteId) {
-      tokens.push(`${this.evernoteIdChanged ? '*' : ' '}Evernote ID:    ${this.evernoteId}`);
+      tokens.push(`${this.evernoteIdChanged ? '*' : ' '}Evernote ID:            ${this.evernoteId}`);
     }
     if (this.evernoteOrder) {
-      tokens.push(`${this.evernoteOrderChanged ? '*' : ' '}Evernote order: ${this.evernoteOrder}`);
+      tokens.push(` Evernote order:         ${this.evernoteOrder}`);
+    }
+    if (this.evernoteDeadlineTime) {
+      tokens.push(` Evernote deadline time: ${this.evernoteDeadlineTime}`);
     }
     if (this.simpleMindId) {
-      tokens.push(`${this.simpleMindIdChanged ? '*' : ' '}SimpleMind ID:  ${this.simpleMindId}`);
+      tokens.push(`${this.simpleMindIdChanged ? '*' : ' '}SimpleMind ID:          ${this.simpleMindId}`);
     }
     if (this.deadline) {
-      tokens.push(`${this.deadlineChanged ? '*' : ' '}Deadline:       ${this.deadline.toISOString()}`);
+      tokens.push(`${this.deadlineChanged ? '*' : ' '}Deadline:               ${this.deadline.toISOString()}`);
     }
     if (this.url) {
-      tokens.push(`${this.urlChanged ? '*' : ' '}URL:            ${this.url}`);
+      tokens.push(`${this.urlChanged ? '*' : ' '}URL:                    ${this.url}`);
     }
     return tokens.join('\n');
   }
@@ -222,7 +235,7 @@ class Todo {
       deadline: this.deadline,
       done: this.done,
       url: this.url,
-      evernote: { id: this.evernoteId, order: this.evernoteOrder },
+      evernote: { id: this.evernoteId, order: this.evernoteOrder, deadlineTime: this.evernoteDeadlineTime },
       simpleMind: { id: this.simpleMindId }
     });
   }
@@ -233,7 +246,7 @@ class Todo {
       deadline: this.deadline,
       done: this.done,
       url: this.url,
-      evernote: { id: this.evernoteId, order: this.evernoteOrder },
+      evernote: { id: this.evernoteId, order: this.evernoteOrder, deadlineTime: this.evernoteDeadlineTime },
       simpleMind: { id: this.simpleMindId },
       status: ADDED
     });
@@ -245,7 +258,7 @@ class Todo {
       deadline: this.deadline,
       done: this.done,
       url: this.url,
-      evernote: { id: this.evernoteId, order: this.evernoteOrder },
+      evernote: { id: this.evernoteId, order: this.evernoteOrder, deadlineTime: this.evernoteDeadlineTime },
       simpleMind: { id: this.simpleMindId },
       status: REMOVED
     });
@@ -273,7 +286,8 @@ class Todo {
       done: done === undefined ? this.done : done,
       evernote: {
         id: evernote.id === undefined ? this.evernoteId : evernote.id,
-        order: evernote.order === undefined ? this.evernoteOrder : evernote.order
+        order: evernote.order === undefined ? this.evernoteOrder : evernote.order,
+        deadlineTime: evernote.deadlineTime === undefined ? this.evernoteDeadlineTime : evernote.deadlineTime
       },
       simpleMind: {
         id: simpleMind.id === undefined ? this.simpleMindId : simpleMind.id
@@ -297,6 +311,7 @@ class Todo {
         done !== undefined ||
         evernote.id !== undefined ||
         evernote.order !== undefined ||
+        evernote.deadlineTime !== undefined ||
         simpleMind.id !== undefined ||
         deadline !== undefined ||
         url !== undefined

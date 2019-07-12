@@ -153,7 +153,7 @@ describe('When I instantiate a synchronizer', () => {
       }
     });
     describe('and I load the cache', () => {
-      beforeEach(() => synchronizer.loadCache());
+      beforeEach(() => synchronizer.setup());
       describe('the size of the cache', () => {
         let cacheSize;
         beforeEach(() => ({ cacheSize } = synchronizer.getTestStatus()));
@@ -172,10 +172,10 @@ describe('When I instantiate a synchronizer', () => {
       fs.existsSync.mockReturnValue(true);
       fs.readFileSync.mockReturnValue(cache);
     });
-    describe('and I call the loadCache and synchronize functions', () => {
+    describe('and I call the setup and synchronize functions', () => {
       let result;
       beforeEach(() => {
-        synchronizer.loadCache();
+        synchronizer.setup();
         result = synchronizer.synchronize({ simpleMind, evernote });
       });
       describe('the result', () => {
@@ -183,8 +183,8 @@ describe('When I instantiate a synchronizer', () => {
           expect(result).toMatchSnapshot();
         });
       });
-      describe('and I call the saveCache function', () => {
-        beforeEach(() => synchronizer.saveCache());
+      describe('and I call the teardown function', () => {
+        beforeEach(() => synchronizer.teardown());
         describe('the cache written to the local file system', () => {
           it(expectedCache, () => {
             expect(fs.writeFileSync.mock.calls[0][1]).toMatchSnapshot();
@@ -202,16 +202,16 @@ describe('When I instantiate a synchronizer', () => {
     ${'only a SimpleMind ID and the cached item has both'}                        | ${simpleMindWithOneItem} | ${cacheWithOneItem}        | ${'contains the todo item with both IDs'}
     ${'Evernote and SimpleMind IDs and the cache is empty'}                       | ${todoListWithOneItem}   | ${cacheWithNoItems}        | ${'is empty'}
   `(
-    'and I call loadCache and updateCacheIds with a todo list with an item that has $description',
+    'and I call setup and updateCacheIds with a todo list with an item that has $description',
     ({ todos, cache, expected }) => {
       beforeEach(() => {
         fs.existsSync.mockReturnValue(true);
         fs.readFileSync.mockReturnValue(cache);
-        synchronizer.loadCache();
+        synchronizer.setup();
         synchronizer.updateCacheIds(todos);
       });
-      describe('and I call saveCache', () => {
-        beforeEach(() => synchronizer.saveCache());
+      describe('and I call teardown', () => {
+        beforeEach(() => synchronizer.teardown());
         describe('the cache written to the local file system', () => {
           it(expected, () => {
             expect(fs.writeFileSync.mock.calls[0][1]).toMatchSnapshot();
@@ -254,9 +254,9 @@ describe('When I instantiate a synchronizer', () => {
     beforeEach(() => {
       fs.existsSync.mockReturnValue(true);
       fs.readFileSync.mockReturnValue(cache);
-      synchronizer.loadCache();
+      synchronizer.setup();
       result = synchronizer.synchronize({ simpleMind, evernote });
-      synchronizer.saveCache();
+      synchronizer.teardown();
     });
     describe('the sync result', () => {
       it(`is that ${expectedSyncResult}`, () => expect(result).toMatchSnapshot());

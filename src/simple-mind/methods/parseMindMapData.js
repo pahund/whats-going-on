@@ -1,6 +1,6 @@
 const xml2js = require('xml2js');
 const parser = new xml2js.Parser();
-const { rejectWithCustomMessage } = require('../utils');
+const { rejectWithCustomMessage } = require('../../utils');
 
 module.exports = xml =>
   new Promise((resolve, reject) =>

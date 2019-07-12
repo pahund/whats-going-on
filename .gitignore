@@ -1,8 +1,8 @@
 node_modules
 *.iml
 .idea
-*-credentials.json
 *-token.json
 *.smmx
 deleteme*
 .cache
+.env

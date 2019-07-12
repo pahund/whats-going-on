@@ -1,4 +1,4 @@
-const { getTopics, formatDate } = require('./utils');
+const { getTopics, formatDate } = require('../utils');
 
 module.exports = (data, todos) => ({
   'simplemind-mindmaps': {

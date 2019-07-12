@@ -1,4 +1,4 @@
-const { getTopics } = require('./utils');
+const { getTopics } = require('../utils');
 
 module.exports = (data, todos) => ({
   'simplemind-mindmaps': {

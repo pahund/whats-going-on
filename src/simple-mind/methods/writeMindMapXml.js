@@ -1,6 +1,6 @@
 const fs = require('fs');
 const JSZip = require('jszip');
-const { SMMX_PATH } = require('./constants');
+const { SMMX_PATH } = require('../constants');
 
 module.exports = async xml => {
   const data = fs.readFileSync(SMMX_PATH);

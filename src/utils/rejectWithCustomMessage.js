@@ -1,3 +1,4 @@
+/* DEPRECATED */
 module.exports = (message, reject, err = new Error()) => {
   if (!err.message) {
     err.message = message;

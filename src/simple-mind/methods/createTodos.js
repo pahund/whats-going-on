@@ -1,5 +1,5 @@
-const { getTopics, generateGuid, formatDate } = require('./utils');
-const { SPACING_X, SPACING_Y } = require('./constants');
+const { getTopics, generateGuid, formatDate } = require('../utils');
+const { SPACING_X, SPACING_Y } = require('../constants');
 
 const calculateY = (topics, todos) => Number(topics[0].$.y) - ((todos.length - 1) / 2) * SPACING_Y;
 

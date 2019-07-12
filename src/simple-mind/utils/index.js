@@ -7,6 +7,7 @@ const mapTopicsToTodoItems = require('./mapTopicsToTodoItems');
 const prepareDate = require('./prepareDate');
 const prepareTitle = require('./prepareTitle');
 const withDrive = require('./withDrive');
+const withApiErrorHandling = require('./withApiErrorHandling');
 
 module.exports = {
   filterTopicsForTodos,
@@ -17,5 +18,6 @@ module.exports = {
   mapTopicsToTodoItems,
   prepareDate,
   prepareTitle,
-  withDrive
+  withDrive,
+  withApiErrorHandling
 };
