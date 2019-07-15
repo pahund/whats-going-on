@@ -6,7 +6,7 @@ require('dotenv').config({ path: getPath('.env') });
 const { SimpleMind } = require('../src/simple-mind');
 const { Evernote } = require('../src/evernote');
 
-(async () => {
+const run = async () => {
   try {
     const ev = new Evernote();
     const sm = new SimpleMind();
@@ -37,6 +37,15 @@ const { Evernote } = require('../src/evernote');
     } else {
       console.error(err instanceof WhatsGoingOnError ? err.message : 'Oops – an unknown program error occurred');
     }
-    process.exit(1);
+    return 1;
   }
-})();
+  return 0;
+};
+
+if (require.main === module) {
+  (async () => {
+    process.exit(await run());
+  })();
+}
+
+module.exports = run;

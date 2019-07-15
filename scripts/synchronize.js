@@ -9,7 +9,7 @@ const { SimpleMind } = require('../src/simple-mind');
 const { Evernote } = require('../src/evernote');
 const { fetchGmtOffset } = require('../src/timezone');
 
-const synchronize = async () => {
+const run = async () => {
   try {
     const sync = new Synchronizer();
     const ev = new Evernote();
@@ -83,8 +83,8 @@ const synchronize = async () => {
 
 if (require.main === module) {
   (async () => {
-    process.exit(await synchronize());
+    process.exit(await run());
   })();
 }
 
-module.exports = synchronize;
+module.exports = run;

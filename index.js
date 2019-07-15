@@ -1,6 +1,7 @@
 const { getPath } = require('./src/utils');
 require('dotenv').config({ path: getPath('.env') });
-const synchronize = require('./scripts/synchronize');
+// const synchronize = require('./scripts/synchronize');
+const synchronize = require('./scripts/gmt-offset');
 
 const getTime = () => new Date().toISOString();
 
