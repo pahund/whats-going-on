@@ -3,13 +3,22 @@
   "version": "0.0.4",
   "description": "Syncs todo items between SimpleMind and Evernote",
   "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pahund/whats-going-on.git"
+  },
   "scripts": {
     "start": "node .",
+    "deploy": "gcloud app deploy",
     "test": "jest src",
     "lint": "eslint . --fix",
     "show": "scripty",
     "gmt-offset": "scripty",
     "synchronize": "scripty"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "scripty": {
     "silent": true

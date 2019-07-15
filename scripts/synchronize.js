@@ -9,7 +9,7 @@ const { SimpleMind } = require('../src/simple-mind');
 const { Evernote } = require('../src/evernote');
 const { fetchGmtOffset } = require('../src/timezone');
 
-(async () => {
+const synchronize = async () => {
   try {
     const sync = new Synchronizer();
     const ev = new Evernote();
@@ -76,6 +76,15 @@ const { fetchGmtOffset } = require('../src/timezone');
     } else {
       console.error(err instanceof WhatsGoingOnError ? err.message : 'Oops – an unknown program error occurred');
     }
-    process.exit(1);
+    return 1;
   }
-})();
+  return 0;
+};
+
+if (require.main === module) {
+  (async () => {
+    process.exit(await synchronize());
+  })();
+}
+
+module.exports = synchronize;
