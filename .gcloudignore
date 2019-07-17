@@ -15,3 +15,18 @@
 
 # Node.js dependencies:
 node_modules/
+
+# dotenv config - for gcloud, the env vars are defined in app.yaml
+.env
+.env.example
+
+# IntelliJ
+*.iml
+.idea
+
+# Cache is stored in cloud bucket, not on file system
+.cache
+
+# MacOS
+.DS_Store
+

@@ -26,6 +26,7 @@
   "author": "Patrick Hund <pahund@team.mobile.de> (https://ebaytech.berlin/)",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/storage": "^3.0.2",
     "dotenv": "^8.0.0",
     "evernote": "^2.0.5",
     "gaxios": "^2.0.1",

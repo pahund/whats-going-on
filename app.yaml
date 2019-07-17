@@ -1,1 +1,32 @@
 runtime: nodejs10
+
+env_variables:
+
+  # ID of the notebook “02 Geschäftlich” in Evernote
+  EVERNOTE_NOTEBOOK_ID: '3df417a0-7da1-42d6-a887-04c0008f2f84'
+
+  # OAuth config for Evernote API access
+  EVERNOTE_API_CONSUMER_KEY: 'phund'
+  EVERNOTE_API_SANDBOX: 'false'
+  EVERNOTE_API_CHINA: 'false'
+
+  # ID of the file “What_s Going On.smmx” on Google Drive
+  GOOGLE_DRIVE_FILE_ID: '1wDkYtOXUPn4eer9rfMWmYiSaAoPeEJaJ'
+
+  # Oauth config for Google Drive API access
+  GOOGLE_DRIVE_API_CLIENT_ID: '661384417578-1984gifoi3sdtu2kritvh5sbjkj7e946.apps.googleusercontent.com'
+
+  # Latitude and longitude used for determining the time zone of deadlines
+  # This, for example, are the coordinated for Berlin, Germany (time zones CET or CEST):
+  TIMEZONE_LAT: '52.520008'
+  TIMEZONE_LONG: '13.404954'
+
+  # API key for the timezone API (register at https://timezonedb.com/)
+  TIMEZONE_API_KEY: '6WYWJO9ARQ5A'
+
+  # Time interval in seconds between synchronization runs
+  SYNC_INTERVAL: '30'
+
+  # storage in Google Cloud
+  GCLOUD_STORAGE_ACTIVE: 'true'
+  GCLOUD_STORAGE_BUCKET: 'whats-going-on'

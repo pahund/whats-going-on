@@ -3,7 +3,7 @@ const { withDrive, withApiErrorHandling } = require('../utils');
 const { createWriteStream } = require('fs');
 const { rejectWithCustomMessage } = require('../../utils');
 
-module.exports = auth =>
+module.exports = (auth, storage) =>
   withDrive(auth)(async drive => {
     const fileId = process.env.GOOGLE_DRIVE_FILE_ID;
     console.log(`Writing to ${SMMX_PATH}`);

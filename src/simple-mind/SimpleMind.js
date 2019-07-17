@@ -12,18 +12,20 @@ const {
   writeMindMapXml
 } = require('./methods');
 const { Builder } = require('xml2js');
+const storage = Symbol('Storage client');
 
 module.exports = class {
-  constructor() {
+  constructor({ storage: storageClient }) {
     this.auth = null;
     this.data = null;
     this.report = null;
     this.gmtOffset = null;
+    this[storage] = storageClient;
   }
 
   async setup(gmtOffset = 0) {
     this.auth = await authorize();
-    await downloadMindMap(this.auth);
+    await downloadMindMap(this.auth, this[storage]);
     const xml = await retrieveMindMapXml();
     this.data = await parseMindMapData(xml);
     this.report = {
