@@ -5,15 +5,20 @@ require('dotenv').config({ path: getPath('.env') });
 
 const { SimpleMind } = require('../src/simple-mind');
 const { Evernote } = require('../src/evernote');
+const { Storage } = require('../src/storage');
+const { fetchGmtOffset } = require('../src/timezone');
 
 const run = async () => {
   try {
-    const ev = new Evernote();
-    const sm = new SimpleMind();
+    const storage = new Storage();
+    const ev = new Evernote({ storage });
+    const sm = new SimpleMind({ storage });
 
     // Initialization
-    await sm.setup();
-    await ev.setup();
+    const gmtOffset = await fetchGmtOffset();
+    storage.setup();
+    await sm.setup(gmtOffset);
+    await ev.setup(gmtOffset);
     const simpleMind = await sm.retrieveTodos();
     const evernote = await ev.retrieveTodos();
 

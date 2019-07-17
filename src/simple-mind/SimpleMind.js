@@ -12,6 +12,7 @@ const {
   writeMindMapXml
 } = require('./methods');
 const { Builder } = require('xml2js');
+const { SMMX_PATH } = require('./constants');
 const storage = Symbol('Storage client');
 
 module.exports = class {
@@ -26,8 +27,16 @@ module.exports = class {
   async setup(gmtOffset = 0) {
     this.auth = await authorize();
     await downloadMindMap(this.auth, this[storage]);
+    console.log('[SimpleMind.setup] Mind map downloaded successfully');
+    const exists = await this[storage].exists(SMMX_PATH);
+    console.log(`[SimpleMind.setup] does the file ${SMMX_PATH} exist? ${exists}`);
     const xml = await retrieveMindMapXml(this[storage]);
+    console.log('[SimpleMind.setup] XML retrieved from mind map successfully');
     this.data = await parseMindMapData(xml);
+    console.log('[SimpleMind.setup] Data parsed from mind map XML successfully');
+    console.log(
+      `[SimpleMind.setup] Mind map title: ${this.data['simplemind-mindmaps'].mindmap[0].meta[0].title[0].$.text}`
+    );
     this.report = {
       added: 0,
       changed: 0,

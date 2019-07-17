@@ -9,14 +9,12 @@ module.exports = (auth, storage) =>
     const dest = storage.createWriteStream(SMMX_PATH);
     let progress = 0;
     const res = await withApiErrorHandling(() => drive.files.get({ fileId, alt: 'media' }, { responseType: 'stream' }));
-    return new Promise((resolve, reject) =>
+    return new Promise((resolve, reject) => {
       res.data
-        .on('end', () => {
-          console.log('\nDone downloading file.');
-          resolve();
-        })
         .on('error', err => {
-          console.log('\n');
+          if (process.stdout.isTTY) {
+            console.log('\n');
+          }
           return rejectWithCustomMessage(`Error downloading file with ID ${fileId} from Google Drive`, reject, err);
         })
         .on('data', d => {
@@ -27,6 +25,10 @@ module.exports = (auth, storage) =>
             process.stdout.write(`Downloaded ${progress} bytes…`);
           }
         })
-        .pipe(dest)
-    );
+        .pipe(dest);
+      dest.on('finish', () => {
+        console.log(`${process.stdout.isTTY ? '\n' : ''}[downloadMindMap] Done downloading file`);
+        resolve();
+      });
+    });
   });
