@@ -6,3 +6,4 @@ node_modules
 deleteme*
 .cache
 .env
+*.bak
