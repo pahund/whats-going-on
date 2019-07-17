@@ -85,14 +85,16 @@ module.exports = class {
 
   createReadStream(fileName) {
     if (this.isCloud) {
-      return null;
+      const file = this.bucket.file(fileName);
+      return file.createReadStream();
     }
     return createReadStream(getPath(fileName));
   }
 
   createWriteStream(fileName) {
     if (this.isCloud) {
-      return null;
+      const file = this.bucket.file(fileName);
+      return file.createWriteStream();
     }
     return createWriteStream(getPath(fileName));
   }

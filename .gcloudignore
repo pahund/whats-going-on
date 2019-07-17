@@ -16,10 +16,6 @@
 # Node.js dependencies:
 node_modules/
 
-# dotenv config - for gcloud, the env vars are defined in app.yaml
-.env
-.env.example
-
 # IntelliJ
 *.iml
 .idea
