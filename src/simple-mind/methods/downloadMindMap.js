@@ -27,7 +27,7 @@ module.exports = (auth, storage) =>
         })
         .pipe(dest);
       dest.on('finish', () => {
-        console.log(`${process.stdout.isTTY ? '\n' : ''}[downloadMindMap] Done downloading file`);
+        console.log(`${process.stdout.isTTY ? '\n' : ''}Done downloading file ${SMMX_PATH} from Google Drive`);
         resolve();
       });
     });

@@ -27,9 +27,7 @@ module.exports = class {
   async read(fileName) {
     if (this.isCloud) {
       const file = this.bucket.file(fileName);
-      console.log(`[Storage.read] about to download ${fileName}`);
       const result = await file.download();
-      console.log(`[Storage.read] ${fileName} downloaded successfully`);
       return result[0];
     }
     return new Promise((resolve, reject) =>
@@ -55,9 +53,7 @@ module.exports = class {
   async write(fileName, data) {
     if (this.isCloud) {
       const file = this.bucket.file(fileName);
-      console.log(`[Storage.write] about to save ${fileName}`);
       await file.save(data, { resumable: false });
-      console.log(`[Storage.write] ${fileName} saved successfully`);
       return;
     }
     return new Promise((resolve, reject) =>

@@ -1,11 +1,7 @@
 const { getPath } = require('./src/utils');
 require('dotenv').config({ path: getPath('.env') });
-const synchronize = require('./scripts/show');
+const synchronize = require('./scripts/synchronize');
 const express = require('express');
-
-const getTime = () => new Date().toISOString();
-
-const log = msg => console.log(`[${getTime()}] ${msg}`);
 
 const PORT = process.env.PORT || 8080;
 
@@ -19,16 +15,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/sync', async (req, res) => {
-  log('STARTING SYNC');
+  console.log('STARTING SYNC');
   const result = await synchronize();
   if (result === 0) {
-    log('SUCCESS');
+    console.log('SUCCESS');
     res
       .status(200)
       .send('Synchronization successful')
       .end();
   } else {
-    log('FAILURE');
+    console.log('FAILURE');
     res
       .status(200)
       .send('Synchronization failed')
@@ -36,7 +32,4 @@ app.get('/sync', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}`);
-  console.log('Press Ctrl+C to quit.');
-});
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
