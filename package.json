@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "node .",
-    "deploy": "gcloud app deploy",
+    "deploy": "gcloud app deploy && gcloud app deploy cron.yaml",
     "test": "jest src",
     "lint": "eslint . --fix",
     "show": "scripty",

@@ -23,7 +23,8 @@ module.exports = class {
   }
 
   async setup() {
-    if (!(await this[storage].exists(CACHE_PATH))) {
+    const hasCache = await this[storage].exists(CACHE_PATH);
+    if (!hasCache) {
       console.warn('No local todo cache found');
       return;
     }

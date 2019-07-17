@@ -27,10 +27,10 @@ module.exports = class {
   async read(fileName) {
     if (this.isCloud) {
       const file = this.bucket.file(fileName);
-      return await file.download();
+      const result = await file.download();
+      return result[0];
     }
     return new Promise((resolve, reject) =>
-      // readFile(getPath(fileName), 'utf8', (err, data) => {
       readFile(getPath(fileName), (err, data) => {
         if (err) {
           reject(err);
@@ -44,7 +44,8 @@ module.exports = class {
   async exists(fileName) {
     if (this.isCloud) {
       const file = this.bucket.file(fileName);
-      return await file.exists();
+      const result = await file.exists();
+      return result[0];
     }
     return new Promise(resolve => access(getPath(fileName), F_OK, err => resolve(err === null)));
   }

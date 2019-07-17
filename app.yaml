@@ -3,3 +3,4 @@ runtime: nodejs10
 env_variables:
   # storage in Google Cloud
   GCLOUD_STORAGE_ACTIVE: 'true'
+  NODE_ENV: 'development'
