@@ -26,7 +26,7 @@ module.exports = class {
   async setup(gmtOffset = 0) {
     this.auth = await authorize();
     await downloadMindMap(this.auth, this[storage]);
-    const xml = await retrieveMindMapXml();
+    const xml = await retrieveMindMapXml(this[storage]);
     this.data = await parseMindMapData(xml);
     this.report = {
       added: 0,
@@ -62,9 +62,9 @@ module.exports = class {
       // only update the smmx file on Google Drive if necessary
       const builder = new Builder();
       const xml = builder.buildObject(this.data);
-      await writeMindMapXml(xml);
-      await uploadMindMap(this.auth);
+      await writeMindMapXml(xml, this[storage]);
+      await uploadMindMap(this.auth, this[storage]);
     }
-    await cleanUp();
+    await cleanUp(this[storage]);
   }
 };

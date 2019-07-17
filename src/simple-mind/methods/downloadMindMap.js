@@ -1,13 +1,12 @@
 const { SMMX_PATH } = require('../constants');
 const { withDrive, withApiErrorHandling } = require('../utils');
-const { createWriteStream } = require('fs');
 const { rejectWithCustomMessage } = require('../../utils');
 
 module.exports = (auth, storage) =>
   withDrive(auth)(async drive => {
     const fileId = process.env.GOOGLE_DRIVE_FILE_ID;
     console.log(`Writing to ${SMMX_PATH}`);
-    const dest = createWriteStream(SMMX_PATH);
+    const dest = storage.createWriteStream(SMMX_PATH);
     let progress = 0;
     const res = await withApiErrorHandling(() => drive.files.get({ fileId, alt: 'media' }, { responseType: 'stream' }));
     return new Promise((resolve, reject) =>

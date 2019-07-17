@@ -22,12 +22,12 @@ module.exports = class {
     this[storage] = storageClient;
   }
 
-  setup() {
-    if (!this[storage].exists(CACHE_PATH)) {
+  async setup() {
+    if (!(await this[storage].exists(CACHE_PATH))) {
       console.warn('No local todo cache found');
       return;
     }
-    const rawCache = this[storage].read(CACHE_PATH);
+    const rawCache = await this[storage].read(CACHE_PATH);
     this[cache] = JSON.parse(rawCache).map(data => new Todo(data));
     console.log(`Loaded ${this[cache].length} locally cached todo items`);
   }
@@ -128,8 +128,8 @@ module.exports = class {
     this.addToCache(todo.change(changes));
   }
 
-  teardown() {
-    this[storage].write(CACHE_PATH, JSON.stringify(this[cache]));
+  async teardown() {
+    await this[storage].write(CACHE_PATH, JSON.stringify(this[cache]));
     console.log(`Saved ${this[cache].length} locally cached todo items`);
   }
 

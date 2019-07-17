@@ -3,6 +3,9 @@ const {
   readFile,
   access,
   writeFile,
+  createReadStream,
+  createWriteStream,
+  unlink,
   constants: { F_OK }
 } = require('fs');
 const { getPath } = require('../utils');
@@ -27,7 +30,8 @@ module.exports = class {
       return await file.download();
     }
     return new Promise((resolve, reject) =>
-      readFile(getPath(fileName), 'utf8', (err, data) => {
+      // readFile(getPath(fileName), 'utf8', (err, data) => {
+      readFile(getPath(fileName), (err, data) => {
         if (err) {
           reject(err);
         } else {
@@ -60,5 +64,36 @@ module.exports = class {
         }
       })
     );
+  }
+
+  async delete(fileName) {
+    if (this.isCloud) {
+      const file = this.bucket.file(fileName);
+      await file.delete();
+      return;
+    }
+    return new Promise((resolve, reject) =>
+      unlink(getPath(fileName), err => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve();
+        }
+      })
+    );
+  }
+
+  createReadStream(fileName) {
+    if (this.isCloud) {
+      return null;
+    }
+    return createReadStream(getPath(fileName));
+  }
+
+  createWriteStream(fileName) {
+    if (this.isCloud) {
+      return null;
+    }
+    return createWriteStream(getPath(fileName));
   }
 };
