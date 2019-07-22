@@ -27,7 +27,9 @@ module.exports = (auth, storage) =>
         })
         .pipe(dest);
       dest.on('finish', () => {
-        console.log(`${process.stdout.isTTY ? '\n' : ''}Done downloading file ${SMMX_PATH} from Google Drive`);
+        console.log(
+          `${process.stdout.isTTY ? '\n' : `${progress} bytes – `}Done downloading file ${SMMX_PATH} from Google Drive`
+        );
         resolve();
       });
     });

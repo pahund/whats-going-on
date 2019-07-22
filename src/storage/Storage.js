@@ -95,7 +95,7 @@ module.exports = class {
   createWriteStream(fileName) {
     if (this.isCloud) {
       const file = this.bucket.file(fileName);
-      return file.createWriteStream();
+      return file.createWriteStream({ resumable: false });
     }
     return createWriteStream(getPath(fileName));
   }
