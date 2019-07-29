@@ -1,3 +1,4 @@
+const { BufferStream } = require('./utils');
 const { Storage: CloudStorage } = require('@google-cloud/storage');
 const {
   readFile,
@@ -84,10 +85,17 @@ module.exports = class {
     );
   }
 
-  createReadStream(fileName) {
+  async createReadStream(fileName) {
     if (this.isCloud) {
       const file = this.bucket.file(fileName);
-      return file.createReadStream();
+      const readStream = file.createReadStream();
+      // This is an ugly workaround, because directly piping a readable stream from a cloud bucket file to
+      // the Google Drive API does not seem to work: exhaust the readable stream, store the data in a buffer,
+      // and return another stream that reads from this buffer.
+      // @see https://stackoverflow.com/questions/57151911/unable-to-pipe-file-read-stream-from-google-cloud-storage-to-google-drive-api
+      const chunks = [];
+      await new Promise(resolve => readStream.on('data', chunk => chunks.push(chunk)).on('end', resolve));
+      return new BufferStream(Buffer.concat(chunks));
     }
     return createReadStream(getPath(fileName));
   }
