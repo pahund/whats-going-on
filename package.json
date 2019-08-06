@@ -3,13 +3,33 @@
   "version": "0.0.4",
   "description": "Syncs todo items between SimpleMind and Evernote",
   "main": "index.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:pahund/whats-going-on.git"
+  },
   "scripts": {
     "start": "node .",
+    "deploy": "yarn deploy:service && yarn deploy:cron",
+    "deploy:service": "gcloud --quiet app deploy",
+    "deploy:cron": "gcloud --quiet app deploy cron.yaml",
     "test": "jest src",
     "lint": "eslint . --fix",
     "show": "scripty",
     "gmt-offset": "scripty",
     "synchronize": "scripty"
+  },
+  "cloud-repo-tools": {
+    "test": {
+      "app": {
+        "msg": "What's going on?"
+      }
+    },
+    "requiresKeyFile": true,
+    "requiresProjectId": true
+  },
+  "engines": {
+    "node": ">=10.0.0"
   },
   "scripty": {
     "silent": true
@@ -17,8 +37,10 @@
   "author": "Patrick Hund <pahund@team.mobile.de> (https://ebaytech.berlin/)",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/storage": "^3.0.2",
     "dotenv": "^8.0.0",
     "evernote": "^2.0.5",
+    "express": "^4.17.1",
     "gaxios": "^2.0.1",
     "googleapis": "^40.0.0",
     "jszip": "^3.2.1",

@@ -8,16 +8,19 @@ const { ADDED, REMOVED, CHANGED } = require('../src/model');
 const { SimpleMind } = require('../src/simple-mind');
 const { Evernote } = require('../src/evernote');
 const { fetchGmtOffset } = require('../src/timezone');
+const { Storage } = require('../src/storage');
 
-(async () => {
+const run = async () => {
   try {
-    const sync = new Synchronizer();
-    const ev = new Evernote();
-    const sm = new SimpleMind();
+    const storage = new Storage();
+    const sync = new Synchronizer({ storage });
+    const ev = new Evernote({ storage });
+    const sm = new SimpleMind({ storage });
 
     // Initialization
+    storage.setup();
     const gmtOffset = await fetchGmtOffset();
-    sync.setup();
+    await sync.setup();
     await sm.setup(gmtOffset);
     await ev.setup(gmtOffset);
     const simpleMind = sm.retrieveTodos();
@@ -53,7 +56,7 @@ const { fetchGmtOffset } = require('../src/timezone');
     sm.changeTodos(changedSimpleMindTodos);
 
     // Clean up
-    sync.teardown();
+    await sync.teardown();
     await sm.teardown();
 
     // Report
@@ -76,6 +79,15 @@ const { fetchGmtOffset } = require('../src/timezone');
     } else {
       console.error(err instanceof WhatsGoingOnError ? err.message : 'Oops – an unknown program error occurred');
     }
-    process.exit(1);
+    return 1;
   }
-})();
+  return 0;
+};
+
+if (require.main === module) {
+  (async () => {
+    process.exit(await run());
+  })();
+}
+
+module.exports = run;

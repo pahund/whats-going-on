@@ -1,14 +1,17 @@
 #!/usr/bin/env node
 
-const { getPath, isDevMode, WhatsGoingOnError } = require('../src/utils');
+const { getPath, WhatsGoingOnError, isDevMode } = require('../src/utils');
 require('dotenv').config({ path: getPath('.env') });
-
-const { fetchGmtOffset } = require('../src/timezone');
+const { Storage } = require('../src/storage');
+const { CACHE_PATH } = require('../src/synchronizer/constants');
 
 const run = async () => {
   try {
-    const gmtOffset = await fetchGmtOffset();
-    console.log(`The GMT offset for the currently configured coordinates is ${gmtOffset} sec`);
+    const storage = new Storage();
+
+    storage.setup();
+    await storage.delete(CACHE_PATH);
+    console.log('Cache was deleted');
   } catch (err) {
     if (isDevMode()) {
       console.log(err.stack);

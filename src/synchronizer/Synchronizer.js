@@ -1,4 +1,3 @@
-const { readFileSync, existsSync, writeFileSync } = require('fs');
 const { CACHE_PATH } = require('./constants');
 const { Todo } = require('../model');
 const {
@@ -13,20 +12,23 @@ const { hasEntries } = require('../utils');
 const simpleMind = Symbol('SimpleMind todos');
 const evernote = Symbol('Evernote todos');
 const cache = Symbol('Internally cached todos');
+const storage = Symbol('Storage client');
 
 module.exports = class {
-  constructor() {
+  constructor({ storage: storageClient }) {
     this[simpleMind] = [];
     this[evernote] = [];
     this[cache] = [];
+    this[storage] = storageClient;
   }
 
-  setup() {
-    if (!existsSync(CACHE_PATH)) {
+  async setup() {
+    const hasCache = await this[storage].exists(CACHE_PATH);
+    if (!hasCache) {
       console.warn('No local todo cache found');
       return;
     }
-    const rawCache = readFileSync(CACHE_PATH);
+    const rawCache = await this[storage].read(CACHE_PATH);
     this[cache] = JSON.parse(rawCache).map(data => new Todo(data));
     console.log(`Loaded ${this[cache].length} locally cached todo items`);
   }
@@ -127,8 +129,8 @@ module.exports = class {
     this.addToCache(todo.change(changes));
   }
 
-  teardown() {
-    writeFileSync(CACHE_PATH, JSON.stringify(this[cache]));
+  async teardown() {
+    await this[storage].write(CACHE_PATH, JSON.stringify(this[cache]));
     console.log(`Saved ${this[cache].length} locally cached todo items`);
   }
 

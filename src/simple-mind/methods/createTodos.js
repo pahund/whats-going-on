@@ -59,8 +59,3 @@ module.exports = (data, todos) => {
   };
   return [nextData, nextTodos];
 };
-
-const topics = [{ $: { y: 400 } }];
-const todos = [1, 2];
-
-console.log(calculateY(topics, todos));

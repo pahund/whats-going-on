@@ -1,15 +1,21 @@
 const { SMMX_PATH } = require('../constants');
 const { withDrive } = require('../utils');
-const { createReadStream } = require('fs');
 
-module.exports = auth =>
+module.exports = (auth, storage) =>
   withDrive(auth)(async drive => {
+    let progress = 0;
     const fileId = process.env.GOOGLE_DRIVE_FILE_ID;
+    const readStream = await storage.createReadStream(SMMX_PATH);
     const media = {
       mimeType: 'application/x-zip',
-      body: createReadStream(SMMX_PATH).on('error', () => {
-        throw new Error(`Error reading file with ${SMMX_PATH} while trying to upload to Google Drive`);
-      })
+      body: readStream
+        .on('error', () => {
+          throw new Error(`Error reading file with ${SMMX_PATH} while trying to upload to Google Drive`);
+        })
+        .on('data', d => {
+          progress += d.length;
+        })
+        .on('end', () => console.log(`${progress} bytes read from storage`))
     };
 
     try {
