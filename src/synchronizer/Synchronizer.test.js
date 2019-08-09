@@ -1,8 +1,29 @@
 const Synchronizer = require('./Synchronizer');
-const fs = require('fs');
 const { Todo, UNCHANGED } = require('../model');
+const { Storage } = require('../storage');
 
-jest.mock('fs');
+const mockExists = jest.fn();
+const mockRead = jest.fn();
+const mockWrite = jest.fn();
+
+jest.mock(
+  '../storage/Storage',
+  () =>
+    class {
+      // eslint-disable-next-line require-await
+      async exists(...args) {
+        return mockExists(...args);
+      }
+      // eslint-disable-next-line require-await
+      async read(...args) {
+        return mockRead(...args);
+      }
+      // eslint-disable-next-line require-await
+      async write(...args) {
+        return mockWrite(...args);
+      }
+    }
+);
 
 const simpleMindId = '666';
 const evernoteId = '777';
@@ -133,7 +154,8 @@ const cacheWithSimpleMindItem = `[
 
 describe('When I instantiate a synchronizer', () => {
   let synchronizer;
-  beforeEach(() => (synchronizer = new Synchronizer()));
+  beforeEach(() => (synchronizer = new Synchronizer({ storage: new Storage() })));
+
   describe.each`
     description               | hasCache | expectedCacheSize
     ${'no cache'}             | ${false} | ${0}
@@ -141,19 +163,19 @@ describe('When I instantiate a synchronizer', () => {
   `('and there is $description', ({ hasCache, expectedCacheSize }) => {
     beforeEach(() => {
       if (hasCache) {
-        fs.existsSync.mockReturnValue(true);
-        fs.readFileSync.mockReturnValue(`
+        mockExists.mockReturnValue(true);
+        mockRead.mockReturnValue(`
           [
             { "title": "foo" },
             { "title": "bar" }
           ]
         `);
       } else {
-        fs.existsSync.mockReturnValue(false);
+        mockExists.mockReturnValue(false);
       }
     });
     describe('and I load the cache', () => {
-      beforeEach(() => synchronizer.setup());
+      beforeEach(async () => await synchronizer.setup());
       describe('the size of the cache', () => {
         let cacheSize;
         beforeEach(() => ({ cacheSize } = synchronizer.getTestStatus()));
@@ -169,13 +191,13 @@ describe('When I instantiate a synchronizer', () => {
     ${'a todo was added in Evernote'}     | ${simpleMindWithNoItems} | ${cacheWithNoItems} | ${evernoteWithOneItem} | ${'todo is added to SimpleMind'} | ${'contains the todo'}
   `('and $description', ({ simpleMind, cache, evernote, expectedResult, expectedCache }) => {
     beforeEach(() => {
-      fs.existsSync.mockReturnValue(true);
-      fs.readFileSync.mockReturnValue(cache);
+      mockExists.mockReturnValue(true);
+      mockRead.mockReturnValue(cache);
     });
     describe('and I call the setup and synchronize functions', () => {
       let result;
-      beforeEach(() => {
-        synchronizer.setup();
+      beforeEach(async () => {
+        await synchronizer.setup();
         result = synchronizer.synchronize({ simpleMind, evernote });
       });
       describe('the result', () => {
@@ -187,12 +209,12 @@ describe('When I instantiate a synchronizer', () => {
         beforeEach(() => synchronizer.teardown());
         describe('the cache written to the local file system', () => {
           it(expectedCache, () => {
-            expect(fs.writeFileSync.mock.calls[0][1]).toMatchSnapshot();
+            expect(mockWrite.mock.calls[0][1]).toMatchSnapshot();
           });
         });
       });
     });
-    afterEach(() => jest.clearAllMocks());
+    afterEach(() => jest.resetAllMocks());
   });
   describe.each`
     description                                                                   | todos                    | cache                      | expected
@@ -204,21 +226,21 @@ describe('When I instantiate a synchronizer', () => {
   `(
     'and I call setup and updateCacheIds with a todo list with an item that has $description',
     ({ todos, cache, expected }) => {
-      beforeEach(() => {
-        fs.existsSync.mockReturnValue(true);
-        fs.readFileSync.mockReturnValue(cache);
-        synchronizer.setup();
+      beforeEach(async () => {
+        mockExists.mockReturnValue(true);
+        mockRead.mockReturnValue(cache);
+        await synchronizer.setup();
         synchronizer.updateCacheIds(todos);
       });
       describe('and I call teardown', () => {
         beforeEach(() => synchronizer.teardown());
         describe('the cache written to the local file system', () => {
           it(expected, () => {
-            expect(fs.writeFileSync.mock.calls[0][1]).toMatchSnapshot();
+            expect(mockWrite.mock.calls[0][1]).toMatchSnapshot();
           });
         });
       });
-      afterEach(() => jest.clearAllMocks());
+      afterEach(() => jest.resetAllMocks());
     }
   );
   describe.each`
@@ -251,10 +273,10 @@ describe('When I instantiate a synchronizer', () => {
     ${'the order was changed in Evernote'}         | ${simpleMindWithOneItem}             | ${evernoteWithChangedOrder}        | ${cacheWithOneItem}  | ${'nothing should be changed'}                      | ${'contains the changed Evernote order'}
   `('and $description', ({ simpleMind, evernote, cache, expectedSyncResult, expectedCacheResult }) => {
     let result;
-    beforeEach(() => {
-      fs.existsSync.mockReturnValue(true);
-      fs.readFileSync.mockReturnValue(cache);
-      synchronizer.setup();
+    beforeEach(async () => {
+      mockExists.mockReturnValue(true);
+      mockRead.mockReturnValue(cache);
+      await synchronizer.setup();
       result = synchronizer.synchronize({ simpleMind, evernote });
       synchronizer.teardown();
     });
@@ -262,8 +284,8 @@ describe('When I instantiate a synchronizer', () => {
       it(`is that ${expectedSyncResult}`, () => expect(result).toMatchSnapshot());
     });
     describe('the cache', () => {
-      it(expectedCacheResult, () => expect(fs.writeFileSync.mock.calls[0][1]).toMatchSnapshot());
+      it(expectedCacheResult, () => expect(mockWrite.mock.calls[0][1]).toMatchSnapshot());
     });
-    afterEach(() => jest.clearAllMocks());
+    afterEach(() => jest.resetAllMocks());
   });
 });
