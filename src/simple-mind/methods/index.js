@@ -4,6 +4,7 @@ const cleanUp = require('./cleanUp');
 const createTodos = require('./createTodos');
 const deleteTodos = require('./deleteTodos');
 const downloadMindMap = require('./downloadMindMap');
+const isDownloadRequired = require('./isDownloadRequired');
 const parseMindMapData = require('./parseMindMapData');
 const retrieveMindMapXml = require('./retrieveMindMapXml');
 const retrieveTodos = require('./retrieveTodos');
@@ -17,6 +18,7 @@ module.exports = {
   createTodos,
   deleteTodos,
   downloadMindMap,
+  isDownloadRequired,
   parseMindMapData,
   retrieveMindMapXml,
   retrieveTodos,
