@@ -1,4 +1,4 @@
 cron:
   - description: "sync"
     url: /sync
-    schedule: every 60 mins
+    schedule: every 1 mins

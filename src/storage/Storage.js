@@ -7,6 +7,7 @@ const {
   createReadStream,
   createWriteStream,
   unlink,
+  stat,
   constants: { F_OK }
 } = require('fs');
 const { getPath } = require('../utils');
@@ -49,6 +50,23 @@ module.exports = class {
       return result[0];
     }
     return new Promise(resolve => access(getPath(fileName), F_OK, err => resolve(err === null)));
+  }
+
+  async getLastModificationDate(fileName) {
+    if (this.isCloud) {
+      const file = this.bucket.file(fileName);
+      const result = await file.get();
+      return result[0].metadata.updated;
+    }
+    return new Promise((resolve, reject) =>
+      stat(getPath(fileName), (err, { mtime }) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(mtime);
+        }
+      })
+    );
   }
 
   async write(fileName, data) {

@@ -1,10 +1,10 @@
 const {
   authorize,
   changeTodos,
-  cleanUp,
   createTodos,
   deleteTodos,
   downloadMindMap,
+  isDownloadRequired,
   parseMindMapData,
   retrieveMindMapXml,
   retrieveTodos,
@@ -25,7 +25,9 @@ module.exports = class {
 
   async setup(gmtOffset = 0) {
     this.auth = await authorize();
-    await downloadMindMap(this.auth, this[storage]);
+    if (await isDownloadRequired(this.auth, this[storage])) {
+      await downloadMindMap(this.auth, this[storage]);
+    }
     const xml = await retrieveMindMapXml(this[storage]);
     this.data = await parseMindMapData(xml);
     this.report = {
@@ -65,6 +67,5 @@ module.exports = class {
       await writeMindMapXml(xml, this[storage]);
       await uploadMindMap(this.auth, this[storage]);
     }
-    await cleanUp(this[storage]);
   }
 };
