@@ -1,4 +1,12 @@
-const { authorize, retrieveTodos, createTodos, deleteTodos, changeTodos, listNotebooks } = require('./methods');
+const {
+  authorize,
+  retrieveTodos,
+  createTodo,
+  createTodos,
+  deleteTodos,
+  changeTodos,
+  listNotebooks
+} = require('./methods');
 
 module.exports = class {
   constructor() {
@@ -18,6 +26,11 @@ module.exports = class {
 
   async retrieveTodos() {
     return await retrieveTodos(this.client);
+  }
+
+  async createTodo(todo) {
+    this.report.added++;
+    return await createTodo(this.client, todo);
   }
 
   async createTodos(todos) {
