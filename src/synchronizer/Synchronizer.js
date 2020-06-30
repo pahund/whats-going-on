@@ -39,50 +39,69 @@ module.exports = class {
       simpleMind: []
     };
     for (const simpleMindTodo of simpleMind) {
+      // console.log(`Processing SM todo ”${simpleMindTodo.title}”`);
       const cachedTodo = this.findInCache(simpleMindTodo);
       if (!cachedTodo) {
         // (3) added in SimpleMind
+        console.log(`(3) Added in SimpleMind:\n${simpleMindTodo}`);
         this.addToCache(simpleMindTodo);
+        console.log('* Added to cache');
         next.evernote.push(simpleMindTodo.add());
+        console.log('* Going to add to Evernote');
         continue;
       }
       const evernoteTodo = evernote.find(curr => curr.evernoteId === cachedTodo.evernoteId);
       if (!evernoteTodo) {
         // (2) removed in Evernote
+        console.log(`(2) Removed in Evernote:\n${simpleMindTodo}`);
         this.removeFromCache(cachedTodo);
+        console.log('* Removed from cache');
         next.simpleMind.push(simpleMindTodo.remove());
+        console.log('* Going to remove from SimpleMind');
         continue;
       }
       // (0) changed in Evernote or SimpleMind
-      const changes = { simpleMind: {}, evernote: {}, cache: { evernote: {} } };
+      const changes = { simpleMind: {}, evernote: {}, cache: {} };
       processTitleChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
       processDoneChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
       processDeadlineChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
       processUrlChange({ simpleMindTodo, evernoteTodo, cachedTodo, changes });
       processOrderChange({ evernoteTodo, cachedTodo, changes });
       if (hasEntries(changes.simpleMind)) {
+        console.log(`(0) Changed in Evernote:\n${evernoteTodo}`);
         next.simpleMind.push(simpleMindTodo.change(changes.simpleMind));
+        console.log('* Going to change in SimpleMind');
       }
       if (hasEntries(changes.evernote)) {
+        console.log(`(0) Changed in SimpleMind:\n${simpleMindTodo}`);
         next.evernote.push(evernoteTodo.change(changes.evernote));
+        console.log('* Going to change in Evernote');
       }
       if (hasEntries(changes.cache)) {
         this.changeInCache(cachedTodo, changes.cache);
+        console.log('* Changed in cache');
       }
     }
     for (const evernoteTodo of evernote) {
+      // console.log(`Processing Ev todo ”${evernoteTodo.title}”`);
       const cachedTodo = this.findInCache(evernoteTodo);
       if (!cachedTodo) {
         // (4) added in Evernote
+        console.log(`(4) Added in Evernote:\n${evernoteTodo}`);
         this.addToCache(evernoteTodo);
+        console.log('* Added to cache');
         next.simpleMind.push(evernoteTodo.add());
+        console.log('* Going to add to SimpleMind');
         continue;
       }
       const simpleMindTodo = simpleMind.find(curr => curr.simpleMindId === cachedTodo.simpleMindId);
       if (!simpleMindTodo) {
         // (1) removed in SimpleMind
+        console.log(`(1) Removed in SimpleMind:\n${evernoteTodo}`);
         this.removeFromCache(cachedTodo);
+        console.log('* Removed from cache');
         next.evernote.push(evernoteTodo.remove());
+        console.log('* Going to remove from Evernote');
       }
     }
     return next;

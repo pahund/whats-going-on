@@ -18,6 +18,9 @@ module.exports = client =>
       includeAttributes: true
     });
     const rawResults = await withApiErrorHandling(noteStore.findNotesMetadata)(filter, 0, MAX_TODOS, spec);
+    // rawResults.notes.forEach(({ title, attributes: { reminderOrder } }) =>
+    //   console.log(`Raw Ev result: ${title.substr(0, 20).padEnd(20)} (${reminderOrder})`)
+    // );
     return rawResults.notes
       .filter(note => note.attributes.reminderOrder !== null)
       .map(
