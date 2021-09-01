@@ -1,4 +1,1 @@
 cron:
-  - description: "sync"
-    url: /sync
-    schedule: every 1 mins
