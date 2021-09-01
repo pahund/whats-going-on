@@ -17,7 +17,8 @@
     "lint": "eslint . --fix",
     "show": "scripty",
     "gmt-offset": "scripty",
-    "synchronize": "scripty"
+    "synchronize": "scripty",
+    "list-notebooks": "scripty"
   },
   "cloud-repo-tools": {
     "test": {
